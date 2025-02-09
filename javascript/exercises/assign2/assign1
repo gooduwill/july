@@ -1,0 +1,9 @@
+function repeatString(str,n){
+    if(typeof str=='string'){
+        return String.repeat(n)
+    }
+    else{
+        return `not a string!!`
+    }
+}
+console.log(repeatString('Alex',2))

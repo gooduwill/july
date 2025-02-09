@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title> contact form</title>
+   
+</head>
+<style>
+    *{
+        margin: 0px;
+        padding: 0px;
+    }
+    section{
+        width: 100%;
+        max-width:600px ;
+        margin: 50px auto 0px ;/*  this shifts block to center                   */
+        background-color: yellowgreen;
+        box-shadow:0 4px 0px  aqua ;
+        border-radius: 10px;
+        
+    }
+    
+  #contact-form input,  
+  #contact-form textarea{
+    
+    width: 565px;
+    padding: 5px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    
+    
+  } 
+  #contact-form button{
+    display: block;
+    width: 570px;
+    padding: 0px;
+    margin: 5px;
+    margin-left: 10px;
+    height: 40px;
+    background-color: blue;
+    
+  } 
+  h1{
+    font-size: 50px;
+    text-align: center;
+  }
+
+</style>
+
+<body>
+    <section>
+    <h1>contact form </h1>
+    <div id="contact-form">
+    <form id="contact-form" action="/api/contact" method="post">
+    <label for="name">Name:</label> <br>
+     <input type="text" id="name" name="name"/> <br>
+     <label for="name">Email:</label> <br>
+     <input type="email" id="email" name="email"/> <br>
+     
+     <label for="name">Mobile No:</label> <br>
+     <input type="number" id="mobile-number" name="mobile-number" placeholder="9267800476"/> <br>
+     <label for="name">Message:</label> <br>
+     <textarea id="message" name="message" required></textarea> <br>
+     <button type="submit">Submit</button>
+
+
+    </form>
+    
+
+    </ul>
+</div>
+    </section>
+    <script>
+     document.getElementById('contact-form').addEventListener('submit',
+     function(event){
+          event.preventDefault()
+        //console.log(event.type)
+        console.log(event)
+        const formData=new FormData(document.getElementById('contact-form'))
+        const formObject = {};
+formData.forEach((value, key) => {
+  formObject[key] = value;
+});
+        const url=`http://localhost:3033/api/contact`        
+        const xhr=new XMLHttpRequest()
+        xhr.open('POST',url,true)
+       // xhr.open('GET',url,true)
+       xhr.setRequestHeader('Content-Type', 'application/json');
+        //xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded')
+        console.log('FormData Frontend: ' + formData)
+        //const urlEncodedData=new URLSearchParams(formData.toString())
+        xhr.send(JSON.stringify(formObject))
+
+        xhr.onload=function(){
+            if(xhr.status==200)
+            {
+                //const geturl=`http://localhost:3033/api/contact`
+                //xhr.open('GET',url,true)
+                console.log('xhr.responseText'+xhr.responseText)
+                const result=JSON.parse(xhr.responseText)
+            console.log('received data',result)
+            }
+           xhr.onerror=function(){
+            console.log(err)
+           }
+                 
+        }
+       // xhr.send(formData)
+
+    })
+        
+    </script>
+</body>
+
+
+
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title> Gender App</title>
+
+</head>
+
+<body>
+    <h1>Gender App</h1>
+    <form onsubmit="handleSubmit(event)">
+     <label for="name">Enter your name</label> <br>
+     <input type="text" id="name"/> <br>
+     <input type="submit"/>
+
+
+    </form>
+    <ul id="list">
+
+    </ul>
+    <ul id="list2">
+
+    </ul>
+    <script>
+     function handleSubmit(event){
+        event.preventDefault()
+        //console.log(event.type)
+        //console.log(event)
+        const nameHandle=document.getElementById('name')
+        const name=nameHandle.value
+        //console.log(name)
+        if(name.trim()){
+        const url=`https:api.genderize.io/?name=${name}`
+        const xhr=new XMLHttpRequest()
+        xhr.open('GET',url)
+        xhr.send()
+        xhr.onload=function(){
+            const result=JSON.parse(xhr.responseText)
+            console.log(result)
+            const listHandle=document.getElementById('list')
+            listHandle.innerHTML=`<li> Name-${name}</li>
+                                  <li> length-${name.length}</li>
+                                  <li> Gender-${result.gender}</li>`
+                
+         
+                
+        }}
+     }
+
+
+    </script>
+</body>
+
+
+
+</html>

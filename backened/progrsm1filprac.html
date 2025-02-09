@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title> employee info system</title>
+
+    </head>
+
+    <body>
+        
+     <button onmouseenter="handleClick(event)" id="empBtn">fetch employee record</button>
+
+     <button onclick="fetchUsers(event)" id="empbtn2">fetch users record from jasonplaceholder website</button>
+     <h2 class="title"> </h2>
+     <ol id="list">
+
+     </ol>
+
+     <h2 id="title2"> </h2>
+     <ol id="list2">
+
+     </ol>
+     <script>
+
+        function fetchUsers(event){
+            console.log(event)
+            const xhr=new XMLHttpRequest()
+    xhr.open('GET', 'http://jsonplaceholder.typicode.com/users')
+    xhr.send()
+    xhr.onload=function(){
+    //console.log(xhr.responseText)
+    const result1=JSON.parse(xhr.responseText)
+    const list2Handle= document.getElementById('list2')
+     const title2Handle=document.getElementById('title2')
+     const empbtn2Handel=document.getElementById('empbtn2')
+     title2Handle.innerHTML=`listing users -${result1.length}`
+     let employeesDetails=''
+     result1.forEach(function(ele){
+       employeesDetails+=`<li>${ele.name}-${ele.username}</li>`
+       list2Handle.innerHTML=employeesDetails
+       empbtn2Handel.setAttribute('disabled',true)
+    console.log(result1)
+    console.log('total users record',result1.length)
+        })
+      }}
+function handleClick(event){
+    console.log('event object',event)
+    const xhr=new XMLHttpRequest()
+    xhr.open('GET', 'http://localhost:3009/employees')
+    xhr.send()
+    xhr.onload=function(){
+    //console.log(xhr.responseText)
+    const result=JSON.parse(xhr.responseText)
+    //console.log(result)
+    //console.log('total employees record',result.length)
+     const listHandle= document.getElementById('list')
+     const titleHandle=document.getElementsByClassName('title')
+     titleHandle.innerHTML=`listing employees -${result.length}`
+     //const empbtnHandle=document.getElementById('empBtn')
+     //empbtnHandle.setAttribute('disabled',true)
+
+     let result3=''
+     
+    result3=result.map(function(ele){
+      return result3=`<li>${ele.name}-${ele.position}</li>`
+     })
+      listHandle.innerHTML=result3
+    }
+}
+
+
+     </script>
+    </body>
+
+</html>

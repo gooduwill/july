@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form Application</title>
+    <style>
+        *{
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        section {
+          width: 100%;
+          max-width: 600px;
+          margin: 50px auto 0;
+          padding: 20px;
+          background-color: #f9f9f9;
+          border-radius: 10px;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+      
+        h1 {
+          text-align: center;
+          color: #333;
+          font-size: 24px;
+          margin-bottom: 20px;
+        }
+      
+        label {
+          display: block;
+          margin-bottom: 5px;
+          color: #555;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        textarea {
+          width: 100%;
+          padding: 10px;
+          margin-bottom: 20px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+          font-size: 14px;
+          box-sizing: border-box;
+        }
+      
+        textarea {
+          height: 100px;
+          resize: vertical;
+        }
+      
+        button {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          background-color: #4CAF50;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          font-size: 16px;
+          cursor: pointer;
+        }
+      
+        button:hover {
+          background-color: #45a049;
+        }
+      
+        @media (max-width: 600px) {
+          section {
+            padding: 15px;
+          }
+      
+          h1 {
+            font-size: 20px;
+          }
+      
+          button {
+            font-size: 14px;
+          }
+        }
+      </style>
+  </head>
+  <body>
+    <section>
+      <h1>Contact Form Application</h1>
+
+      <form id="contactForm" onsubmit="handleSubmit(event)">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required />
+        <br /><br />
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required />
+        <br /><br />
+
+        <label for="mobile">Mobile:</label>
+        <input type="number" id="mobile" name="mobile" required />
+        <br /><br />
+
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+        <br /><br />
+
+        <button type="submit">Submit</button>
+
+      </form>
+    </section>
+
+    <script>
+
+        function handleSubmit(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('name').value
+            const email = document.getElementById('email').value
+            const mobileNo = document.getElementById('mobile').value
+            const message = document.getElementById('message').value
+            console.log(name)
+            console.log(email)
+            console.log(mobile)
+            console.log(message)
+
+
+
+
+            //data to send in key-value format
+
+            const formData = {
+                name: name,
+                email: email,
+                mobile: mobile,
+                message: message
+            }
+
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://localhost:3033/api/contact', true)
+            //to send data in an encoded format use  requestHeaders
+            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+            xhr.send(JSON.stringify(formData))
+
+            //handle response from server
+            xhr.onload = function(){
+                if(xhr.status === 200){
+                    alert('Form Submitted Successfully')
+                    console.log("Form Submitted Successfully")
+                    const result=JSON.parse(xhr.responseText)
+                    console.log(result)
+                      document.getElementById('contactForm').reset(); // Reset the form
+                }else{
+                    alert("Error Submitting the form")
+                }
+                      
+            }
+           const xhr1 = new XMLHttpRequest()
+            xhr1.open('GET', 'http://localhost:3033/api/contact', true)
+            //to send data in an encoded format use  requestHeaders
+            xhr1.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+            xhr1.send(JSON.stringify(formData))
+            xhr1.onload = function(){
+                if(xhr1.status === 200){
+                    //alert('Form Submitted Successfully')
+                    console.log("Form Submitted Successfully")
+                    const result1=JSON.parse(xhr1.responseText)
+                    console.log(result1)
+                      document.getElementById('contactForm').reset(); // Reset the form
+          }}
+             
+
+        }
+    </script>
+  </body>
+</html>

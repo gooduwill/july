@@ -1,0 +1,18 @@
+function handleClick(event){
+    const xhr = new XMLHttpRequest()               
+    xhr.open('GET', 'http://localhost:3000/employees')
+    xhr.send()
+    xhr.onload = function(){
+        const result = JSON.parse(xhr.responseText)
+        const titleHandle = document.getElementById('title')
+        const listHandle = document.getElementById('list')
+        const empBtnHandle = document.getElementById('empBtn')
+        titleHandle.innerHTML = `Listing Employees - ${result.length}`
+        empBtnHandle.setAttribute('disabled', true)
+        let employeeDetails = ''
+        result.forEach(function(ele){
+            employeeDetails += `<li>${ele.name} - ${ele.position}</li>`
+        })
+        listHandle.innerHTML = employeeDetails
+    }
+}
