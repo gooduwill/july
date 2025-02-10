@@ -14,13 +14,7 @@ const formInitialValue = {
   area: "",
   email:userState.user.email,
   
-
-
-  //id: Date.now(),
-  //department: "",
-  // research: "",
-  //workarea: [],
-};
+ };
 const [form, setForm] = useState(formInitialValue);
   const [clientErrors, setClientErrors] = useState({});
   const [serverErrors, setServerErrors] = useState({});
