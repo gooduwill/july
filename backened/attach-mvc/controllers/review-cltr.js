@@ -89,7 +89,8 @@
       }
     
       try {
-        const newReview = await Review.create({ review, name3, professorId });
+        const newReview = await Review.create({ review, name3,   professorId 
+        });
         res.status(201).json(newReview);
       } catch (err) {
         console.log(err.message);
@@ -104,7 +105,10 @@ reviewCltr.list = async (req, res) => {
     if (!professorId) {
       return res.status(400).json({ error: "Professor ID is required" });
     }
-
+    if (!mongoose.Types.ObjectId.isValid(professorId)) {
+      return res.status(400).json({ error: "Invalid Professor ID" });
+    }
+  
     const query = { professorId: new mongoose.Types.ObjectId(professorId) };
     const reviews = await Review.find(query);
     res.json(reviews);

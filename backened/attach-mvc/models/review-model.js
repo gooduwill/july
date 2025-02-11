@@ -5,7 +5,7 @@ const reviewSchema = new Schema(
   {
     review: String,
     name3: String,
-    professorId: {type: String, required:true }, // Associate review with professor
+    professorId: {type: Schema.Types.ObjectId, required: true, ref: "Professor" }, // Associate review with professor
   },
   { timestamps: true }
 );
