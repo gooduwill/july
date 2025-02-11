@@ -311,6 +311,7 @@ function Project1() {
               type="text"
               name="ResearchExp"
               value={form.ResearchExp}
+              style={{width:"390px"}}
               onChange={handleChange}
               placeholder="Write about Research Experience"
               required

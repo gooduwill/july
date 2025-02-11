@@ -52,6 +52,7 @@ export default function Register(){
 
     return(
         <>
+        
             <h2>Register page</h2>
             {serverErrors && (
                 <div>
@@ -64,7 +65,9 @@ export default function Register(){
                     </ul>
                 </div>
             )}
-            <form onSubmit={handleSubmit}>
+            
+            <form onSubmit={handleSubmit} className="register-form">
+                
                 <input type="email" className="register-input" value={formData.email} onChange={(e)=>setFormData({...formData, email:e.target.value})}
                 placeholder="enter email"/> <br/>
                 {clientErrors && <p className="clientErrors">{clientErrors.email}</p>}
@@ -81,7 +84,10 @@ export default function Register(){
                {clientErrors && <p className="clientErrors">{clientErrors.role}</p>}
 
                <input type="submit"/>
+            
                </form>
+            
+               
                </>
 
 

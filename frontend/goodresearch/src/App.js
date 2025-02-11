@@ -2,10 +2,13 @@
 import './App.css';
 import axios from "axios";
 import {Routes,Route,Link,useNavigate} from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import DashBoard from './pages/DashBoard';
+
 import Account from './pages/Account';
 import Project1 from './pages/Project1';
 import ProjectDetail from './pages/ProjectDetail';
@@ -18,17 +21,30 @@ import AuthProvider from './component/AuthProvider';
 import { useContext,useState,useEffect } from 'react';
 import PrivateRoute from './component/PrivateRoute';
 import ProfessorDetails from './pages/ProfessorDetails';
+import Hooter from './pages/Hooter';
 
 function App(props) {
   const {userState,handleLogout}=useContext(AuthContext);
   const {user2State,user2Dispatch}=useContext(AuthContext);
   const navigate=useNavigate();
+  const location = useLocation();
+  const pagesWithBackground = ["/login", "/register"];
+
+
 
 
  
   
   return (
-    <div className="App">
+    <div className="App" 
+    style={pagesWithBackground.includes(location.pathname) ? {
+      backgroundImage: "url('/download_cap.png')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      minHeight: "100vh",
+      width: "100%",
+    } : {}}
+    >
       <h1>Project</h1>
       <ul id="top-nav">
       <li><Link to="/">Home</Link></li>

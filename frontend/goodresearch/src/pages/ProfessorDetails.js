@@ -57,12 +57,13 @@ export default function ProfessorDetails() {
         ))}
         <br />
         <form onSubmit={handleSubmit}>
-          <label>Write Review give * out of 5</label>
+          <label>Write Review give point out of 5</label>
           <br />
           <textarea
             type="text"
             name="review"
             value={form1.review}
+            style={{width:"300px"}}
             onChange={(e) => setForm1({ ...form1, review: e.target.value })}
           />
           <br />
@@ -72,10 +73,12 @@ export default function ProfessorDetails() {
             type="text"
             name="name3"
             value={form1.name3}
+            style={{width:"250px"}}
+
             onChange={(e) => setForm1({ ...form1, name3: e.target.value })}
           />
           <br />
-          <input type="submit" />
+          <input type="submit" className="profDetails-button" />
           <br /> Reviews<br />
           {add.map((ele, index) => (
             <li key={index}>

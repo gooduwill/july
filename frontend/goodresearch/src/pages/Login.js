@@ -71,11 +71,11 @@ export default function Login(){
                 </div>
             )}
             <form onSubmit={handleSubmit}>
-                <input type="email" value={formData.email} onChange={(e)=>setFormData({...formData, email:e.target.value})}
+                <input type="email" value={formData.email} className="login-input" onChange={(e)=>setFormData({...formData, email:e.target.value})}
                 placeholder="enter email"/> <br/>
                 {clientErrors && <p className="clientErrors">{clientErrors.email}</p>}
 
-                <input type="password" value={formData.password} onChange={(e)=> setFormData({...formData, password:e.target.value})}
+                <input type="password" value={formData.password} className="login-input" onChange={(e)=> setFormData({...formData, password:e.target.value})}
                 placeholder="enter password"/> <br/>
                {clientErrors && <p className="clientErrors">{clientErrors.password}</p>}
 
