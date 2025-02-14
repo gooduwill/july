@@ -3,7 +3,7 @@ import './App.css';
 import axios from "axios";
 import {Routes,Route,Link,useNavigate} from "react-router-dom";
 import { useLocation } from "react-router-dom";
-
+import Navbar from './pages/Navbar';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -36,71 +36,35 @@ function App(props) {
  
   
   return (
-    <div className="App" 
-    style={pagesWithBackground.includes(location.pathname) ? {
-      backgroundImage: "url('/download_cap.png')",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      minHeight: "100vh",
-      width: "100%",
-    } : {}}
+    <div
+      className="App"
+      style={
+        pagesWithBackground.includes(location.pathname)
+          ? {
+              backgroundImage: "url('/download_cap.png')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              minHeight: "100vh",
+              width: "100%",
+            }
+          : {}
+      }
     >
-      <h1>Project</h1>
-      <ul id="top-nav">
-      <li><Link to="/">Home</Link></li>
+       <Navbar /> {/* Show Navbar on all pages */}
 
-        {!userState.isLoggedIn?(
-          <> 
-          <li><Link to="/login">Login</Link></li>
-        <li><Link to="/register">Register</Link></li>
-
-
-          </>
-        ):(
-          <>
-        <li><Link to="/account">Account</Link></li>
-        <li><Link to="/dashboard">DashBoard</Link></li>
-        <li><Link to="/professor">Professor's List</Link></li>
-        <li><Link to="/professorAcc">Professor's account</Link></li>
-
-        <li><Link to="project1">Project1</Link></li>
-        <li><Link to="projectlist">ProjectList</Link></li>
-        <li><button onClick={()=>{
-          handleLogout();
-          localStorage.removeItem('token');
-          navigate('/');
-        }}>logout</button></li>
-          
-          </>
-        )}
-        
-      </ul>
       <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route path="/account" element={<PrivateRoute> <Account/></PrivateRoute>} />
-        <Route path="/dashboard" element={<PrivateRoute><DashBoard/></PrivateRoute>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/professor" element={<PrivateRoute><Professor/></PrivateRoute>} />
-        <Route path="/professorAcc" element={<PrivateRoute><ProfessorAcc/></PrivateRoute>} />
-
-        <Route path="/project1" element={<PrivateRoute><Project1/></PrivateRoute>} />
-        <Route path="/projectlist" element={<PrivateRoute><ProjectList/></PrivateRoute>} />
+        <Route path="/" element={<Home />} />
+        <Route path="/account" element={<PrivateRoute> <Account /></PrivateRoute>} />
+        <Route path="/dashboard" element={<PrivateRoute><DashBoard /></PrivateRoute>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/professor" element={<PrivateRoute><Professor /></PrivateRoute>} />
+        <Route path="/professorAcc" element={<PrivateRoute><ProfessorAcc /></PrivateRoute>} />
+        <Route path="/project1" element={<PrivateRoute><Project1 /></PrivateRoute>} />
+        <Route path="/projectlist" element={<PrivateRoute><ProjectList /></PrivateRoute>} />
         <Route path="/user-show/:id" element={<ProjectDetail />} />
         <Route path="/user-show1/:id" element={<ProfessorDetails />} />
         <Route path="/user-project1/:id" element={<Project1 />} />
-
-
-
-        
-
-
-
-
-
-
-
-
       </Routes>
     </div>
   );

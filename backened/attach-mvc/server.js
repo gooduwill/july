@@ -51,7 +51,7 @@ app.post('/users/department',DepartmentValidationSchema,departmentsCltr.create)
 app.get('/users/department',departmentsCltr.list)
 app.put('/users/department/:id',departmentsCltr.update)
 
-app.post('/users/prof',checkSchema(ProfessorValidationSchema),professorCltr.create)
+app.post('/users/prof',authenticateUser,authorizeUser(['admin','professor']),checkSchema(ProfessorValidationSchema),professorCltr.create)
 app.get('/users/prof',professorCltr.list)
 app.put('/users/prof/:id',professorCltr.update)
 
@@ -73,8 +73,8 @@ app.get('/users/review',reviewCltr.list)
 //checkschema routing level middleware
 app.post('/formsend1',formsendCltr.create)
 app.get('/formsend1',formsendCltr.list)
-app.delete('/formsend1/:id',formsendCltr.remove)
-app.put('/formsend1/:id',formsendCltr.update)
+app.delete('/formsend1/:id',authenticateUser,authorizeUser(['admin']),formsendCltr.remove)
+app.put('/formsend1/:id',authenticateUser,authorizeUser(['admin']),formsendCltr.update)
 
 // Start the server
 app.listen(process.env.PORT, () => {

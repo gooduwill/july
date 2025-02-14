@@ -81,7 +81,7 @@ export default function Login(){
 
                
 
-               <input type="submit"/>
+               <input type="submit" className="login-button"/>
                </form>
                </>
 

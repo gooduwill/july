@@ -127,7 +127,7 @@ function Project1() {
             `http://localhost:3010/formsend1/${editData._id}`,
             formData,
             {
-              headers: { "Content-Type": "multipart/form-data" },
+              headers: {Authorization:localStorage.getItem('token')},
             }
           );
 

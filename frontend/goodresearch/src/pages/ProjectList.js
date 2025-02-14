@@ -13,7 +13,7 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
     const userConfirm = window.confirm("Are you sure you want to remove this?");
     if (userConfirm) {
       axios
-        .delete(`http://localhost:3010/formsend1/${_id.trim()}`)
+        .delete(`http://localhost:3010/formsend1/${_id.trim()}`,{headers:{Authorization:localStorage.getItem('token')}})
         .then((response) => {
           user2Dispatch({ type: "remove_user", payload: _id });
           navigate("/ProjectList"); // Optionally, this can be omitted since the state will update automatically

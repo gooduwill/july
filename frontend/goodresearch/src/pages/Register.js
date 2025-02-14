@@ -83,7 +83,7 @@ export default function Register(){
                <label htmlFor="user">user</label> <br/>
                {clientErrors && <p className="clientErrors">{clientErrors.role}</p>}
 
-               <input type="submit"/>
+               <input type="submit" className="register-button"/>
             
                </form>
             

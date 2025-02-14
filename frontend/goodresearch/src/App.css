@@ -54,6 +54,12 @@
   height: 25px;
   margin-top: 20px;
 }
+.register-button:hover{
+  background-color: brown;
+}
+.login-button:hover{
+  background-color: brown;
+}
 .login-input{
   width:200px;
   height:25px;
@@ -136,6 +142,39 @@ form1 {
 }
 .submit-button {
   align-self: center;}
+  .navbar {
+    display: flex;
+    justify-content: center;   
+     align-items: center;
+    background-color: #2e3239;
+    padding: 10px 20px;
+    color: white;
+  }
+  
+  .nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .nav-links li {
+    display: block;
+  }
+  
+  .nav-links a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .nav-links button {
+    background: none;
+    border: none;
+    color: blue;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
 
 @keyframes App-logo-spin {
   from {

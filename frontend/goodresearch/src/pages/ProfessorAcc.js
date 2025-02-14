@@ -57,7 +57,7 @@ const [form, setForm] = useState(formInitialValue);
         );
         profDispatch({ type: "update_prof", payload: response.data });
       } else {
-        response = await axios.post("http://localhost:3010/users/prof", form);
+        response = await axios.post("http://localhost:3010/users/prof", form,{headers:{Authorization:localStorage.getItem('token')}});
         profDispatch({ type: "add_prof", payload: response.data });
       }
       setForm(formInitialValue);
