@@ -110,11 +110,11 @@ usersCltr.login = async (req, res) => {
     try {
         const user1 = await Good.findOne({ email: body.email });
         if (!user1) {
-            res.status(404).json({ errors: 'invalid email' })
+            res.status(404).json({ errors: 'invalid email and password' })
         }
         const isValidUser = await bcryptjs.compare(body.password, user1.password)
         if (!isValidUser) {
-            res.status(404).json({ errors: 'invalid password' })
+            res.status(404).json({ errors: 'invalid password and email' })
 
         }
         //synchronous operation token generation

@@ -17,7 +17,7 @@ const formInitialValue = {
  };
 const [form, setForm] = useState(formInitialValue);
   const [clientErrors, setClientErrors] = useState({});
-  const [serverErrors, setServerErrors] = useState({});
+  const [serverErrors, setServerErrors] = useState([]);
 
   useEffect(() => {
     if (prof.peditId) {
@@ -30,23 +30,29 @@ const [form, setForm] = useState(formInitialValue);
   }, [prof.peditId, prof.data]);
   const runClientValidationErrors = {};
   const runClientValidations = () => {
+    const errors={};
     if (form.name2.trim().length === 0) {
-      runClientValidationErrors.name2 = "name is required";
-    }
+      errors.name2 = "name is required";
+    }else if (form.name2.trim().length < 3 || form.name2.trim().length > 20) {
+      errors.name2 = "Name should be between 3 to 20 characters";
+  }
     if (form.area.trim().length === 0) {
-      runClientValidationErrors.area = "Research work area is required";
-    }
-    return runClientValidationErrors;
+      errors.area = "Research work area is required";
+    }else if (form.area.trim().length < 3 || form.area.trim().length > 100) {
+      errors.area = "Research experience should be between 3 to 100 characters";
+  }
+    setClientErrors(errors)
+    return errors;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = runClientValidations(); // Store result in a variable
     if (Object.keys(validationErrors).length != 0) {
-      setClientErrors(validationErrors);
-    } else {
-      setClientErrors({});
+      return;
     }
+      setClientErrors({});
+    
     try {
       let response;
 
@@ -62,13 +68,25 @@ const [form, setForm] = useState(formInitialValue);
       }
       setForm(formInitialValue);
     } catch (err) {
-      console.error("Server error:", err.response?.data); // Debugging step
+      console.error("Server error:", err.response?.data.errors); // Debugging step
+      setServerErrors(Array.isArray(err.response.data.errors) ? err.response.data.errors : [{ msg: err.response.data.errors }]);
+
+     
     }
   };
 
   return (
     <div>
       <h1> {prof.peditId ? "Edit" : "Add"} professor</h1>
+      {serverErrors.length > 0 && (
+        <div>
+          {serverErrors.map((error, index) => (
+            <p key={index} style={{ color: "blue" }}>
+              {error.msg}
+            </p>
+          ))}
+        </div>
+      )}
          
       <form onSubmit={handleSubmit} className="form-acc1">
         
