@@ -6,21 +6,22 @@ import axios from "axios";
 const initialReview = {
   review: "",
   name3: "",
-  professorId: "", // Ensure reviews are linked to a professor
+  rating: 0, // Ensure rating is part of the review
+  professorId: "",
 };
 
 export default function ProfessorDetails() {
   const { prof } = useContext(AuthContext);
   const [form1, setForm1] = useState(initialReview);
-  const [add, setAdd] = useState([]);
+  const [add, setAdd] = useState([]); // Holds reviews for the specific professor
   const { id } = useParams(); // Current professor ID
-  const users = prof.data.find((ele) => ele._id == id);
+  const users = prof.data.find((ele) => ele._id === id);
 
   useEffect(() => {
     axios
       .get(`http://localhost:3010/users/review?professorId=${id}`)
       .then((response) => {
-        setAdd(response.data);
+        setAdd(response.data.filter((review) => review.professorId === id)); // Ensure only relevant reviews
       })
       .catch((err) => {
         console.log(err);
@@ -57,35 +58,62 @@ export default function ProfessorDetails() {
         ))}
         <br />
         <form onSubmit={handleSubmit}>
-          <label>Write Review give point out of 5</label>
+          <label>Write Review</label>
           <br />
           <textarea
             type="text"
             name="review"
             value={form1.review}
-            style={{width:"300px"}}
+            style={{ width: "300px" }}
             onChange={(e) => setForm1({ ...form1, review: e.target.value })}
           />
           <br />
+
+          {/* Star Rating Input */}
+          <label>Rating (out of 5):</label>
+          <br />
+          {[1, 2, 3, 4, 5].map((star) => (
+            <span
+              key={star}
+              style={{
+                cursor: "pointer",
+                fontSize: "24px",
+                color: form1.rating >= star ? "gold" : "gray",
+              }}
+              onClick={() => setForm1({ ...form1, rating: star })}
+            >
+              ★
+            </span>
+          ))}
+          <br />
+
           <label>Enter Name</label>
           <br />
           <input
             type="text"
             name="name3"
             value={form1.name3}
-            style={{width:"250px"}}
-
+            style={{ width: "250px" }}
             onChange={(e) => setForm1({ ...form1, name3: e.target.value })}
           />
           <br />
           <input type="submit" className="profDetails-button" />
-          <br /> Reviews<br />
-          {add.map((ele, index) => (
-            <li key={index}>
-              {ele.review} - {ele.name3}
-              <br />
-            </li>
-          ))}
+          <br />
+
+          {/* Display Reviews */}
+          <h3>Reviews</h3>
+          <ul>
+            {add.map((ele, index) => (
+              <li key={index}>
+                <p>{ele.review} - {ele.name3}</p>
+                {[...Array(5)].map((_, i) => (
+                  <span key={i} style={{ color: i < ele.rating ? "gold" : "gray" }}>
+                    ★
+                  </span>
+                ))}
+              </li>
+            ))}
+          </ul>
         </form>
       </div>
 

@@ -13,17 +13,30 @@ review:{
         errorMessage:'apply should be in between 3 to 20 charcters'
     }
 },
-name3:{
+rating:{
     in:['body'],
     exists:{
-        errorMessage:' apply field is required'
+        errorMessage:' rating field is required'
     },
     notEmpty:{
-             errorMessage:'apply cannot be empty'
+             errorMessage:'rating cannot be empty'
     },
     isLength:{
         options:{min:3,max:20},
-        errorMessage:'apply should be in between 3 to 20 charcters'
+        errorMessage:'rating should be in between 3 to 20 charcters'
+    }
+},
+name3:{
+    in:['body'],
+    exists:{
+        errorMessage:' name field is required'
+    },
+    notEmpty:{
+             errorMessage:'name cannot be empty'
+    },
+    isLength:{
+        options:{min:3,max:20},
+        errorMessage:'name should be in between 3 to 20 charcters'
     }
 }
 }

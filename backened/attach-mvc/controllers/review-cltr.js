@@ -82,14 +82,14 @@
         return res.status(404).json({ errors: errors.array() });
       }
     
-      const { review, name3, professorId } = req.body;
+      const { review, name3,rating, professorId } = req.body;
     
       if (!professorId) {
         return res.status(400).json({ error: "Professor ID is required" });
       }
     
       try {
-        const newReview = await Review.create({ review, name3,   professorId 
+        const newReview = await Review.create({ review, name3, rating,   professorId 
         });
         res.status(201).json(newReview);
       } catch (err) {
