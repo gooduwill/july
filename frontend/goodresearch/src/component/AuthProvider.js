@@ -25,6 +25,9 @@ function AuthProvider(props){
     const [userState, userDispatch]= useReducer(userReducer,initialState);
     const [user2State, user2Dispatch]=useReducer(user2Reducer,userInitialState)
     const [prof, profDispatch] = useReducer(userReducer1, profInitialState);
+    
+
+
 
     const [depart, setDepart] = useState([]);
        const [applypost, setApplypost] = useState([]);
@@ -90,16 +93,23 @@ function AuthProvider(props){
         : null;
 
         useEffect(() => {
+        
+
           axios
             .get("http://localhost:3010/users/prof")
             .then((response) => {
               const result = response.data;
               profDispatch({ type: "set_prof", payload: result });
-            })
+
+              }
+            )
             .catch((err) => {
               console.log(err.message);
             });
+          
+
         }, []);
+        
 
 
     if(localStorage.getItem('token') && !userState.user){  //to stop going to login after reload
