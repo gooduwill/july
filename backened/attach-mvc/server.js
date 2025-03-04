@@ -11,6 +11,7 @@ import ReviewValidationSchema from "./validators/review-validation-schema.js";
 import User from './models/formsend-model.js';
 import formsendCltr from './controllers/formsend-cltr.js';
 import { checkSchema, validationResult, body } from 'express-validator';
+
 import dotenv from "dotenv";
 import usersCltr from "./controllers/users-cltr.js";
 
@@ -19,7 +20,7 @@ import * as fs from 'fs';
 import configureDB from './config/db.js';
 import { userRegisterSchema,userLoginSchema } from "./validators/users-validation-schema.js";
 import departmentsCltr from "./controllers/department-cltr.js";
-import professorCltr from "./controllers/prof-cLtr.js";
+import professorCltr from "./controllers/prof-cltr.js";
 import applypostCltr from "./controllers/applypost-cltr.js";
 
 import authenticateUser from "./controllers/middlewares/authenticate.js";
@@ -47,13 +48,13 @@ app.post('/users/register',checkSchema(userRegisterSchema),usersCltr.register)
 app.post('/users/login',checkSchema(userLoginSchema),usersCltr.login)
 app.get('/users/account',authenticateUser,usersCltr.account)
 
-app.post('/users/department',DepartmentValidationSchema,departmentsCltr.create)
+app.post('/users/department',departmentsCltr.create)
 app.get('/users/department',departmentsCltr.list)
 app.put('/users/department/:id',departmentsCltr.update)
 
 app.post('/users/prof',authenticateUser,authorizeUser(['admin','professor']),checkSchema(ProfessorValidationSchema),professorCltr.create)
 app.get('/users/prof',professorCltr.list)
-app.put('/users/prof/:id',professorCltr.update)
+app.put('/users/prof/:id',checkSchema(idValidationSchema),professorCltr.update)
 
 
 app.post('/users/applypost',applypostCltr.create)
@@ -73,7 +74,7 @@ app.get('/users/review',reviewCltr.list)
 //checkschema routing level middleware
 app.post('/formsend1',formsendCltr.create)
 app.get('/formsend1',formsendCltr.list)
-app.delete('/formsend1/:id',authenticateUser,authorizeUser(['admin']),formsendCltr.remove)
+app.delete('/formsend1/:id',authenticateUser,authorizeUser(['admin']),checkSchema(idValidationSchema),formsendCltr.remove)
 app.put('/formsend1/:id',authenticateUser,authorizeUser(['admin']),formsendCltr.update)
 
 // Start the server
