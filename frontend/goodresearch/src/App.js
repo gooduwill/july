@@ -22,6 +22,7 @@ import { useContext,useState,useEffect } from 'react';
 import PrivateRoute from './component/PrivateRoute';
 import ProfessorDetails from './pages/ProfessorDetails';
 import Hooter from './pages/Hooter';
+import { ToastContainer } from "react-toastify";
 
 function App(props) {
   const {userState,handleLogout}=useContext(AuthContext);
@@ -51,7 +52,8 @@ function App(props) {
       }
     >
        <Navbar /> {/* Show Navbar on all pages */}
-
+       <ToastContainer position="top-right" autoClose={3000} />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/account" element={<PrivateRoute> <Account /></PrivateRoute>} />
@@ -66,6 +68,7 @@ function App(props) {
         <Route path="/user-show1/:id" element={<ProfessorDetails />} />
         <Route path="/user-project1/:id" element={<Project1 />} />
       </Routes>
+    
     </div>
   );
 }

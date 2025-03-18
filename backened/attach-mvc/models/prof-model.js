@@ -4,6 +4,9 @@ const professorSchema=new Schema({
     name2:String,
     area:String,
     email:String,
+    image:String,
+    workarea:String,
+
     
     
     

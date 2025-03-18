@@ -10,14 +10,15 @@ export default function ProjectDetail() {
   }
   return (
     <div>
-      <p>project detail id:{id}</p>
+    
       <p> Name:{users?.name}</p>
       <p> Institute name: {users?.instituteName}</p>
       <p> Degree:{users?.degree}</p>
       <p> Department:{users?.department}</p>
       <p> Research area:{users?.research}</p>
       <p> Work area:{users?.workarea}</p>
-      
+      <p> Professor under whom student applied:{users?.name2}</p>
+
 
     </div>
   );

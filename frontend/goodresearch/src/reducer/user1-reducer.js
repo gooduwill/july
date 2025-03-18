@@ -9,7 +9,7 @@ const userReducer1 = (state, action) => {
     case "remove_prof": {
       return {
         ...state,
-        data: state.data.filter((ele) => ele._id != action.payload),
+        data: state.data.filter((ele) => ele._id !== action.payload),
       };
     }
     case "prof_edit_id": {

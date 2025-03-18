@@ -4,6 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
+import { ToastContainer,toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export default function Login(){
     const navigate=useNavigate();
     const {handleLogin}=useContext(AuthContext);
@@ -47,7 +49,13 @@ export default function Login(){
                 const userResponse= await axios.get('http://localhost:3010/users/account',{headers:{Authorization:localStorage.getItem('token')}})
                 console.log('user response',userResponse.data)
                 handleLogin(userResponse.data)
-                navigate('/dashBoard')
+                toast.success("Login successful! Redirecting...", { position: "top-right" });
+
+                setTimeout(() => {
+                    navigate('/dashBoard')
+
+                }, 2000);
+
                 
                 
  
@@ -56,13 +64,26 @@ export default function Login(){
                if(err.response){
 
                 setServerErrors(Array.isArray(err.response.data.errors) ? err.response.data.errors : [{ msg: err.response.data.errors }]);
-            }else{setServerErrors('something went wrong')}
+                if (Array.isArray(err.response.data.errors)) {
+                    err.response.data.errors.forEach(error => {
+                        toast.error(error.msg, { position: "top-right" });
+                    });
+                } else {
+                    toast.error(err.response.data.errors, { position: "top-right" });
+                }
+            }else{setServerErrors('something went wrong')
+                toast.error("Something went wrong!", { position: "top-right" });
+
+            }
 
       
             }
             setClientErrors({})
         } else{
             setClientErrors(clientErrors)
+            Object.values(clientErrors).forEach(error => {
+                toast.error(error, { position: "top-right" });
+            });
 
   
         }
@@ -72,23 +93,15 @@ export default function Login(){
     return(
         <>
             <h2>Login page</h2>
-            {serverErrors && Array.isArray(serverErrors) ? (
-    <div>
-        {serverErrors.map((error, index) => (
-            <p key={index} className="error-message">{error.msg}</p>
-        ))}
-    </div>
-) : (
-    <p className="error-message">{serverErrors}</p>
-)}
+            
             <form onSubmit={handleSubmit}>
                 <input type="email" value={formData.email} className="login-input" onChange={(e)=>setFormData({...formData, email:e.target.value})}
                 placeholder="enter email"/> <br/>
-                {clientErrors && <p className="clientErrors">{clientErrors.email}</p>}
+             {/*  {clientErrors && <p className="clientErrors">{clientErrors.email}</p>} */}
 
                 <input type="password" value={formData.password} className="login-input" onChange={(e)=> setFormData({...formData, password:e.target.value})}
                 placeholder="enter password"/> <br/>
-               {clientErrors && <p className="clientErrors">{clientErrors.password}</p>}
+              {/* {clientErrors && <p className="clientErrors">{clientErrors.password}</p>} */}
 
                
 

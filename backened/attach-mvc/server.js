@@ -27,6 +27,7 @@ import authenticateUser from "./controllers/middlewares/authenticate.js";
 import authorizeUser from "./controllers/middlewares/authorize.js";
 import idValidationSchema from "./validators/id-validation-schema.js";
 import reviewCltr from "./controllers/review-cltr.js";
+import { upload } from "./config/cloudinaryConfig.js";
 
 dotenv.config();
 configureDB()
@@ -52,9 +53,11 @@ app.post('/users/department',departmentsCltr.create)
 app.get('/users/department',departmentsCltr.list)
 app.put('/users/department/:id',departmentsCltr.update)
 
-app.post('/users/prof',authenticateUser,authorizeUser(['admin','professor']),checkSchema(ProfessorValidationSchema),professorCltr.create)
-app.get('/users/prof',professorCltr.list)
-app.put('/users/prof/:id',checkSchema(idValidationSchema),professorCltr.update)
+app.post('/users/prof',upload.single("image"),authenticateUser,authorizeUser(['admin','professor']),checkSchema(ProfessorValidationSchema),professorCltr.create)
+//app.get('/users/prof',professorCltr.list)
+app.get('/users/prof/:workarea',professorCltr.list)
+
+app.put('/users/prof/:id',upload.single("image"),checkSchema(idValidationSchema),professorCltr.update)
 
 
 app.post('/users/applypost',applypostCltr.create)
@@ -64,12 +67,6 @@ app.put('/users/applypost/:id',applypostCltr.update)
 app.post('/users/review',reviewCltr.create)
 app.get('/users/review',reviewCltr.list)
 //app.put('/users/review',reviewCltr.update)
-
-
-
-
-
-
 
 //checkschema routing level middleware
 app.post('/formsend1',formsendCltr.create)

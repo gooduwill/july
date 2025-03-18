@@ -5,8 +5,33 @@ import AuthContext from "../context/AuthContext";
 
 export default function Professor() {
   const { profDispatch, prof } = useContext(AuthContext);
+  const [workarea, setWorkarea]=useState('');
+  const [user1, setUser1]=useState([]);
+  const [searchwarea, setSearchwarea]=useState(null);
   const navigate = useNavigate();
+  const handleSearch=(e)=>{
+    e.preventDefault();
+    setSearchwarea(workarea);
+  }
+  useEffect(()=>{
+    if(!searchwarea){
+      return
+    }
+    axios.get(`http://localhost:3010/users/prof/${searchwarea}`)
+    .then((response)=>{
+      const result=response.data;
+      console.log('result',result)
+      setUser1(result)
 
+
+    })
+    .catch((err)=>{
+     console.log(err)
+     setUser1(null)
+    })
+
+
+  },[searchwarea])
   const handleProfEdit = (id) => {
     profDispatch({ type: "prof_edit_id", payload: id });
     navigate("/ProfessorAcc");
@@ -14,32 +39,34 @@ export default function Professor() {
 
   return (
     <div>
-      <h1>Professor's List</h1>
-      {prof?.data?.length > 0 ? (
-        <ul style={{ display: "flex", flexWrap: "wrap", gap: "20px", padding: 50, listStyle: "none" }}>
-          {prof.data.map((ele) => (
-            <li key={ele._id} style={{ textAlign: "center", flex: "0 1 200px" }}>
-              {/* Image Icon */}
-              <img
-                src="/professor-icon.png"
-                alt="Professor Icon"
-                width="150"
-                height="150"
-                style={{ display:"block", margin: "10 auto 10px"}}
-              />
-              {ele.name2}
-              <Link to={`/user-show1/${ele._id}`} style={{ marginLeft: "10px" }}>
-                Show
-              </Link>
-              <button onClick={() => handleProfEdit(ele._id)} style={{ marginLeft: "10px" }}>
-                Edit
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No professors found.</p>
-      )}
+    <h1>Professor's List</h1>
+    <form>
+        <input
+          type="text"
+          value={workarea}
+          onChange={(e) => setWorkarea(e.target.value)}
+          placeholder="Enter professor workarea"
+        />
+        <button type="submit" onClick={handleSearch}>
+          Search
+        </button>
+      </form>
+
+      {user1.length > 0 ? (
+  user1.map((prof) => (
+    <div key={prof._id}>
+      <p><strong>Name:</strong> {prof.name2}</p>
+      <p><strong>Workarea:</strong> {prof.workarea}</p>
+      <p><strong>Experience:</strong> {prof.area}</p>
+      <img src={prof.image} alt={prof.name2} width="100" />
+      <br />
+      <Link to={`/user-show1/${prof._id}`} style={{ marginLeft: "10px" }}>Show</Link>
+
     </div>
-  );
+  ))
+) : (
+  searchwarea && <p>User not found.</p>
+)}
+  </div>
+  )
 }

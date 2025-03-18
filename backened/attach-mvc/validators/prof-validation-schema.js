@@ -37,7 +37,7 @@ const ProfessorValidationSchema={
             errorMessage: 'email cannot be empty'
         },
         isEmail: {
-            errorMesssage: 'email should be valid format'
+            errorMessage: 'email should be valid format'
         },
         trim: true,
         normalizeEmail: true, 
