@@ -1,25 +1,20 @@
-/*import mongoose from 'mongoose';
-
-const configDB=()=>{
-mongoose.connect('mongodb://127.0.0.1:27017/formsend-app-july24')
-    .then(() => {
-        console.log('connected to db')
-    })
-    .catch((err) => {
-        console.log('error connecting to db', err)
-    })
-}
-//module.exports=configDB
-export default configDB;*/
 import mongoose from 'mongoose'
 
+/**
+ * Asynchronously configures and connects to the MongoDB database.
+  * @async
+ * @function configureDB
+ * @returns {Promise<void>} - A promise that resolves when the connection is established.
+ */
 const configureDB = async () => {
     // const dbUrl = 'mongodb://localhost:27017/user-auth'
     try {
-        const db = await mongoose.connect(process.env.DB_URL)
-        console.log('connected to db')        
-    }catch(err) {
-        console.log(err)
+        const connect = await mongoose.connect(process.env.DB_URL);
+        if (connect) {
+            console.log('connected to db');
+        }
+    } catch (err) {
+        console.log(err.message);
     }
 }
 

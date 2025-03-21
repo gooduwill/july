@@ -6,6 +6,7 @@ import userReducer1 from "../reducer/user1-reducer"
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import axiosInstance from "../pages/axiosInstance";
 
 const initialState={
     isLoggedIn:false,
@@ -44,7 +45,7 @@ function AuthProvider(props){
     useEffect(()=>{
         (async()=>{
             if(localStorage.getItem('token')){
-                const response= await axios.get('http://localhost:3010/users/account',{headers:{Authorization:localStorage.getItem('token')}});
+                const response= await axiosInstance.get('/users/account',{headers:{Authorization:localStorage.getItem('token')}});
                 handleLogin(response.data)
                 console.log(response.data)
             }
@@ -54,14 +55,14 @@ function AuthProvider(props){
     },[])
     
     useEffect(() => {
-        axios.get("http://localhost:3010/formsend1").then((response) => {
+        axiosInstance.get("/formsend1").then((response) => {
           const result = response.data;
           user2Dispatch({ type: "set_user", payload: result });
         });
       }, []);
       useEffect(() => {
-        axios
-          .get("http://localhost:3010/users/applypost")
+        axiosInstance
+          .get("/users/applypost")
           .then((response) => {
             const result = response.data;
             console.log("result", result);
@@ -73,8 +74,8 @@ function AuthProvider(props){
       }, []);
     
       useEffect(() => {
-        axios
-          .get("http://localhost:3010/users/department")
+        axiosInstance
+          .get("/users/department")
           .then((response) => {
             const result = response.data;
             console.log("result", result);
@@ -93,13 +94,16 @@ function AuthProvider(props){
         : null;
 
         useEffect(() => {
+          console.log("Fetching professors..."); // Should appear in the console
+
         
 
-          axios
-            .get("http://localhost:3010/users/prof")
+          axiosInstance
+            .get("/users/prof")
             .then((response) => {
               const result = response.data;
               profDispatch({ type: "set_prof", payload: result });
+              console.log("professor names", result)
 
               }
             )

@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import axios from "axios";
+import axiosInstance from "./axiosInstance";
 
 const initialReview = {
   review: "",
@@ -18,8 +19,8 @@ export default function ProfessorDetails() {
   const users = prof.data.find((ele) => ele._id === id);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3010/users/review?professorId=${id}`)
+    axiosInstance
+      .get(`/users/review?professorId=${id}`)
       .then((response) => {
         setAdd(response.data.filter((review) => review.professorId === id)); // Ensure only relevant reviews
       })
@@ -31,7 +32,7 @@ export default function ProfessorDetails() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3010/users/review", {
+      const response = await axiosInstance.post("/users/review", {
         ...form1,
         professorId: id, // Attach professor ID to review
       });

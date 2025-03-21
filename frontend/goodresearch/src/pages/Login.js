@@ -6,6 +6,7 @@ import AuthContext from "../context/AuthContext";
 import { useContext } from "react";
 import { ToastContainer,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "./axiosInstance"
 export default function Login(){
     const navigate=useNavigate();
     const {handleLogin}=useContext(AuthContext);
@@ -43,10 +44,10 @@ export default function Login(){
         console.log(formData)
         if(Object.keys(clientErrors).length==0){
             try{
-                const response=await axios.post('http://localhost:3010/users/login', formData)
+                const response=await axiosInstance.post('/users/login', formData)
                 console.log(response.data.token)
                 localStorage.setItem('token',response.data.token)
-                const userResponse= await axios.get('http://localhost:3010/users/account',{headers:{Authorization:localStorage.getItem('token')}})
+                const userResponse= await axiosInstance.get('/users/account',{headers:{Authorization:localStorage.getItem('token')}})
                 console.log('user response',userResponse.data)
                 handleLogin(userResponse.data)
                 toast.success("Login successful! Redirecting...", { position: "top-right" });

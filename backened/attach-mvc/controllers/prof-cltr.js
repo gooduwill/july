@@ -20,8 +20,8 @@ professorCltr.list = async (req, res) => {
   }
 };
 
-// Fetch all professors
-/*professorCltr.list = async (req, res) => {
+ //Fetch all professors
+professorCltr.show = async (req, res) => {
   try {
     const professors = await Professor.find();
     res.json(professors);
@@ -29,7 +29,7 @@ professorCltr.list = async (req, res) => {
     console.log(err);
     res.status(500).json({ error: "Something went wrong" });
   }
-}; */
+}; 
 
 // Create a professor with an image upload
 professorCltr.create = async (req, res) => {

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import axiosInstance from "./axiosInstance";
 
 export default function Professor() {
   const { profDispatch, prof } = useContext(AuthContext);
@@ -17,7 +18,7 @@ export default function Professor() {
     if(!searchwarea){
       return
     }
-    axios.get(`http://localhost:3010/users/prof/${searchwarea}`)
+    axiosInstance.get(`/users/prof/${searchwarea}`)
     .then((response)=>{
       const result=response.data;
       console.log('result',result)
@@ -27,15 +28,15 @@ export default function Professor() {
     })
     .catch((err)=>{
      console.log(err)
-     setUser1(null)
+     setUser1([])
     })
 
 
   },[searchwarea])
-  const handleProfEdit = (id) => {
-    profDispatch({ type: "prof_edit_id", payload: id });
-    navigate("/ProfessorAcc");
-  };
+  //const handleProfEdit = (id) => {
+    //profDispatch({ type: "prof_edit_id", payload: id });
+    //navigate("/ProfessorAcc");
+  //};
 
   return (
     <div>

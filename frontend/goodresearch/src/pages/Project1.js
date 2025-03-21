@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams} from "react-router-dom";
-
 import axios from "axios";
 //import { format } from "date-fns";
 import AuthContext from "../context/AuthContext";
 import "../App.css"
+import axiosInstance from "./axiosInstance";
 
 
 function Project1() {
@@ -123,8 +123,8 @@ function Project1() {
       try {
         if (editData) {
           // If editing, send a PUT request to update the project
-          const response = await axios.put(
-            `http://localhost:3010/formsend1/${editData._id}`,
+          const response = await axiosInstance.put(
+            `/formsend1/${editData._id}`,
             formData,
             {
               headers: {Authorization:localStorage.getItem('token')},
@@ -136,8 +136,8 @@ function Project1() {
           setStatus("Project updated successfully!");
         } else {
           // If adding, send a POST request to add the project
-          const response = await axios.post(
-            "http://localhost:3010/formsend1",
+          const response = await axiosInstance.post(
+            "/formsend1",
             formData,
             {
               headers: { "Content-Type": "multipart/form-data" },
@@ -237,18 +237,14 @@ function Project1() {
         </div>
         <div className="form-group">
           <label>Select Professor</label>
-          <select
-            value={form.name2}
-            name="name2"
-            onChange={handleChange}
-          >
-            <option value="">Select</option>
-            {prof?.data.map((ele) => (
-              <option key={ele._id} value={ele.name2}>
-                {ele.name2}
-              </option>
-            ))}
-          </select>
+          <select value={form.name2 || ""} name="name2" onChange={handleChange}>
+  <option value="">Select</option>
+  {prof?.data?.map((ele) => (
+    <option key={ele._id} value={ele.name2}>
+      {ele.name2}
+    </option>
+  ))}
+</select>
         </div>
         <div className="form-group">
           <label>Selected Professor email id</label>

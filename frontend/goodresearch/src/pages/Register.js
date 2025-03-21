@@ -2,6 +2,7 @@ import "../App.css"
 import { useState } from "react"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "./axiosInstance";
 export default function Register(){
     const navigate=useNavigate();
     const [formData, setFormData]=useState({
@@ -33,7 +34,7 @@ export default function Register(){
         console.log(formData)
         if(Object.keys(clientValidationsErrors).length==0){
             try{
-                const response=await axios.post('http://localhost:3010/users/register', formData)
+                const response=await axiosInstance.post('/users/register', formData)
                 console.log(response.data)
                 navigate('/login');
  

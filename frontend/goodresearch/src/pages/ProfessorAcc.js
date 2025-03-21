@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
+import axiosInstance from "./axiosInstance";
 
 export default function ProfessorAcc() {
   const navigate = useNavigate();
@@ -72,8 +73,8 @@ export default function ProfessorAcc() {
 
       let response;
       if (prof.peditId) {
-        response = await axios.put(
-          `http://localhost:3010/users/prof/${prof.peditId}`,
+        response = await axiosInstance.put(
+          `/users/prof/${prof.peditId}`,
           formData,
           {
             headers: {
@@ -84,7 +85,7 @@ export default function ProfessorAcc() {
         );
         profDispatch({ type: "update_prof", payload: response.data });
       } else {
-        response = await axios.post("http://localhost:3010/users/prof", formData, {
+        response = await axiosInstance.post("/users/prof", formData, {
           headers: {
             Authorization: localStorage.getItem("token"),
             "Content-Type": "multipart/form-data",
@@ -163,7 +164,7 @@ export default function ProfessorAcc() {
        
         <div className="form-acc">
           <label>
-            Enter your workarea
+            Enter workarea
             <input
               type="text"
               name="workarea"
