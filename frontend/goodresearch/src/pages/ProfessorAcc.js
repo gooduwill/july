@@ -13,7 +13,7 @@ export default function ProfessorAcc() {
     area: "",
     email: userState.user.email,
     image: null,
-    workarea:"",
+    workarea: "",
   };
 
   const [form, setForm] = useState(formInitialValue);
@@ -56,8 +56,8 @@ export default function ProfessorAcc() {
     setClientErrors(errors);
     return errors;
   };
-  
-  
+
+
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -112,7 +112,7 @@ export default function ProfessorAcc() {
       );
     }
   };
-  
+
   return (
     <div>
       <h1>{prof.peditId ? "Edit" : "Create"} Professor Account</h1>
@@ -168,7 +168,7 @@ export default function ProfessorAcc() {
           </label>
         </div>
 
-       
+
         <div className="form-acc">
           <label>
             Enter workarea
@@ -179,9 +179,9 @@ export default function ProfessorAcc() {
               onChange={(e) => setForm({ ...form, workarea: e.target.value })}
               placeholder="Enter your workarea"
             />
-              {clientErrors.workarea && <span style={{ color: "red" }}>{clientErrors.workarea}</span>}
+            {clientErrors.workarea && <span style={{ color: "red" }}>{clientErrors.workarea}</span>}
 
-            </label>
+          </label>
         </div>
         <div style={{ textAlign: "center" }}>
           <input type="submit" className="subbuttonacc1" />

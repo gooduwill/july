@@ -6,42 +6,42 @@ import axiosInstance from "./axiosInstance";
 
 export default function Professor() {
   const { profDispatch, prof } = useContext(AuthContext);
-  const [workarea, setWorkarea]=useState('');
-  const [user1, setUser1]=useState([]);
-  const [searchwarea, setSearchwarea]=useState(null);
+  const [workarea, setWorkarea] = useState('');
+  const [user1, setUser1] = useState([]);
+  const [searchwarea, setSearchwarea] = useState(null);
   const navigate = useNavigate();
-  const handleSearch=(e)=>{
+  const handleSearch = (e) => {
     e.preventDefault();
     setSearchwarea(workarea);
   }
-  useEffect(()=>{
-    if(!searchwarea){
+  useEffect(() => {
+    if (!searchwarea) {
       return
     }
     axiosInstance.get(`/users/prof/${searchwarea}`)
-    .then((response)=>{
-      const result=response.data;
-      console.log('result',result)
-      setUser1(result)
+      .then((response) => {
+        const result = response.data;
+        console.log('result', result)
+        setUser1(result)
 
 
-    })
-    .catch((err)=>{
-     console.log(err)
-     setUser1([])
-    })
+      })
+      .catch((err) => {
+        console.log(err)
+        setUser1([])
+      })
 
 
-  },[searchwarea])
+  }, [searchwarea])
   //const handleProfEdit = (id) => {
-    //profDispatch({ type: "prof_edit_id", payload: id });
-    //navigate("/ProfessorAcc");
+  //profDispatch({ type: "prof_edit_id", payload: id });
+  //navigate("/ProfessorAcc");
   //};
 
   return (
     <div>
-    <h1>Professor's List</h1>
-    <form>
+      <h1>Professor's List</h1>
+      <form>
         <input
           type="text"
           value={workarea}
@@ -54,23 +54,23 @@ export default function Professor() {
       </form>
 
 
-    <div>
-      {user1.length > 0 ? (
-     user1.map((ele) => (
-     <div key={ele._id}>
-      <p><strong>Name:</strong> {ele.name2}</p>
-      <p><strong>Workarea:</strong> {ele.workarea}</p>
-      <p><strong>Experience:</strong> {ele.area}</p>
-      <img src={ele.image} alt={ele.name2} width="100" />
-      <br />
-      <Link to={`/user-show1/${ele._id}`} style={{ marginLeft: "10px" }}>Show</Link>
+      <div>
+        {user1.length > 0 ? (
+          user1.map((ele) => (
+            <div key={ele._id}>
+              <p><strong>Name:</strong> {ele.name2}</p>
+              <p><strong>Workarea:</strong> {ele.workarea}</p>
+              <p><strong>Experience:</strong> {ele.area}</p>
+              <img src={ele.image} alt={ele.name2} width="100" />
+              <br />
+              <Link to={`/user-show1/${ele._id}`} style={{ marginLeft: "10px" }}>Show</Link>
 
+            </div>
+          ))
+        ) : (
+          searchwarea && <p>Professor not found.</p>
+        )}
+      </div>
     </div>
-  ))
-) : (
-  searchwarea && <p>Professor not found.</p>
-)}
-  </div>
-  </div>
   )
 }

@@ -1,9 +1,9 @@
 import AuthContext from "../context/AuthContext";
-import { useContext, useState,useEffect } from "react";
-import { useNavigate} from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Account(){
-    const {userState}=useContext(AuthContext);
+export default function Account() {
+    const { userState } = useContext(AuthContext);
     const { profDispatch, prof } = useContext(AuthContext);
     const navigate = useNavigate();
     const [matchedProf, setMatchedProf] = useState(null);
@@ -18,29 +18,29 @@ export default function Account(){
 
 
     const handleProfEdit = () => {
-        if(matchedProf){
-        profDispatch({ type: "prof_edit_id", payload: matchedProf._id });
-        navigate("/ProfessorAcc");
-      }}
+        if (matchedProf) {
+            profDispatch({ type: "prof_edit_id", payload: matchedProf._id });
+            navigate("/ProfessorAcc");
+        }
+    }
 
-    return(
+    return (
         <div>
             <h1>Account</h1>
             <p>id-{userState.user._id}</p>
-            <p>email-{userState.user.email}</p> 
-            <p>Role-{userState.user.role}</p> 
+            <p>email-{userState.user.email}</p>
+            <p>Role-{userState.user.role}</p>
             {matchedProf ? (
                 <button onClick={handleProfEdit} style={{ marginLeft: "10px" }}>
                     Edit Professor
                 </button>
             ) : (
                 <p>...</p>
-            )}      
+            )}
 
-            
+
 
         </div>
     )
 }
-    
-   
+

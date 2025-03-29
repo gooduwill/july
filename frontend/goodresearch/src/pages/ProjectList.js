@@ -10,18 +10,18 @@ import withReactContent from "sweetalert2-react-content";
 
 export default function ProjectList({ user, userDispatch, onEdit }) {
   const navigate = useNavigate();
-  const {user2State, user2Dispatch,handleEdit}=useContext(AuthContext)
-  const [currentPage, setCurrentPage]=useState(1);
-  const [name, setName]=useState('');
-  const [user2, setUser2]=useState([]);
-  const [searchName, setSearchName]=useState(null);
+  const { user2State, user2Dispatch, handleEdit } = useContext(AuthContext)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [name, setName] = useState('');
+  const [user2, setUser2] = useState([]);
+  const [searchName, setSearchName] = useState(null);
   const [sortOrder, setSortOrder] = useState("asc"); // Track sorting order
   const MySwal = withReactContent(Swal);
 
-  
-  
-  const itemsPerPage=5;
-  const handleSearch=(e)=>{
+
+
+  const itemsPerPage = 5;
+  const handleSearch = (e) => {
     e.preventDefault();
     setSearchName(name);
   }
@@ -54,14 +54,14 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
     const sortedUsers = [...user2].sort((a, b) =>
       sortOrder === "asc" ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
     );
-  
+
     setUser2(sortedUsers);
     setSortOrder(sortOrder === "asc" ? "desc" : "asc");
   };
-  
 
 
-  
+
+
 
 
   const handleRemove = (_id) => {
@@ -79,7 +79,7 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
           .delete(`/formsend1/${_id.trim()}`, { headers: { Authorization: localStorage.getItem("token") } })
           .then(() => {
             user2Dispatch({ type: "remove_user", payload: _id });
-  
+
             // Show success message
             MySwal.fire("Deleted!", "The student has been removed.", "success");
           })
@@ -91,8 +91,8 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
   const totalPages = Math.ceil(totalUsers / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
- // const currentUsers = user2State.data?.slice(startIndex, endIndex) || [];
- const currentUsers = user2.slice(startIndex, endIndex);
+  // const currentUsers = user2State.data?.slice(startIndex, endIndex) || [];
+  const currentUsers = user2.slice(startIndex, endIndex);
 
 
   /*const filteredUsers = Array.isArray(user2) 
@@ -103,7 +103,7 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
     : user2.slice(startIndex, endIndex)
   : [];
   console.log("filtered user",filteredUsers) */
-  const filteredUsers=user2.filter((ele)=> ele.name==name)
+  const filteredUsers = user2.filter((ele) => ele.name == name)
 
 
   return (
@@ -114,7 +114,7 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
         Sort by Name ({sortOrder === "asc" ? "Ascending" : "Descending"})
       </button>
       <ul>
-      {currentUsers.map((ele) => (
+        {currentUsers.map((ele) => (
           <li key={ele._id} className="container">
             <Link to={`/user-show/${ele._id}`}>{ele.name}</Link>
             <button
@@ -132,9 +132,9 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
           </li>
         ))}
       </ul>
-      
-            {/* Pagination Controls */}
-            <div style={{ marginTop: "20px" }}>
+
+      {/* Pagination Controls */}
+      <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => setCurrentPage((prev) => prev - 1)}
           disabled={currentPage === 1}
@@ -154,30 +154,30 @@ export default function ProjectList({ user, userDispatch, onEdit }) {
         </button>
       </div>
       <div>
-        
-      <form>
-        <input
-          type="text"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          placeholder="Enter student name"
-        />
-        <button type="submit" onClick={handleSearch}>
-          Search
-        </button>
-      </form>
+
+        <form>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter student name"
+          />
+          <button type="submit" onClick={handleSearch}>
+            Search
+          </button>
+        </form>
       </div>
       {filteredUsers.length > 0 ? (
-  filteredUsers.map((ele) => (
-    <div key={ele._id}>
-      <p><strong>Name:</strong> {ele.name}</p>
-      <p><strong>Professor under whom applied</strong> {ele?.name2}</p>
-    </div>
-  ))
-) : (
-  searchName && <p>Student not found.</p>
-)}
-      
+        filteredUsers.map((ele) => (
+          <div key={ele._id}>
+            <p><strong>Name:</strong> {ele.name}</p>
+            <p><strong>Professor under whom applied</strong> {ele?.name2}</p>
+          </div>
+        ))
+      ) : (
+        searchName && <p>Student not found.</p>
+      )}
+
 
     </div>
   );

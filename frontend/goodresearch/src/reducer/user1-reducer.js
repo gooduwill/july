@@ -19,17 +19,17 @@ const userReducer1 = (state, action) => {
       return {
         ...state,
         peditId: null, // Reset edit ID after update
-        data: state.data.map((ele) =>{
-           if( ele._id === action.payload._id){
+        data: state.data.map((ele) => {
+          if (ele._id === action.payload._id) {
             return action.payload;
-           } else{
+          } else {
             return ele;
-           }
-      }),
-    };
+          }
+        }),
+      };
     }
     default: {
-      return {...state};
+      return { ...state };
     }
   }
 };

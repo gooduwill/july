@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 //import { format } from "date-fns";
 import AuthContext from "../context/AuthContext";
@@ -8,15 +8,15 @@ import axiosInstance from "./axiosInstance";
 
 
 function Project1() {
-    const {user2Dispatch,depart,applypost,editData,prof,profDispatch}=useContext(AuthContext);
+  const { user2Dispatch, depart, applypost, editData, prof, profDispatch } = useContext(AuthContext);
   const [form, setForm] = useState({
     name: "",
     applypost: "",
     instituteName: "",
     edate: "",
     degree: "",
-    name2:"",
-    email:"",
+    name2: "",
+    email: "",
     id: Date.now(),
     department: "",
     research: "",
@@ -26,7 +26,7 @@ function Project1() {
     attachment2: null,
   });
   const [status, setStatus] = useState("");
-  
+
 
 
   /*useEffect(() => {
@@ -39,20 +39,20 @@ function Project1() {
   }, [editData]); // Only run when editData changes */
   useEffect(() => {
     if (editData) {
-        setForm({
-            ...editData,
-        });
+      setForm({
+        ...editData,
+      });
 
-        // Auto-fill professor email in edit mode
-        const selectedProf = prof?.data.find((ele) => ele.name2 === editData.name2);
-        if (selectedProf) {
-            setForm((currentForm) => ({
-                ...currentForm,
-                email: selectedProf.email,
-            }));
-        }
+      // Auto-fill professor email in edit mode
+      const selectedProf = prof?.data.find((ele) => ele.name2 === editData.name2);
+      if (selectedProf) {
+        setForm((currentForm) => ({
+          ...currentForm,
+          email: selectedProf.email,
+        }));
+      }
     }
-}, [editData, prof?.data]);
+  }, [editData, prof?.data]);
 
 
   /*const handleChange = (event) => {
@@ -72,24 +72,24 @@ function Project1() {
     const { name, value, files } = event.target;
 
     setForm((currentForm) => {
-        let updatedForm = {
-            ...currentForm,
-            [name]: files ? files[0] : value,
-        };
+      let updatedForm = {
+        ...currentForm,
+        [name]: files ? files[0] : value,
+      };
 
-        // Auto-fill email when a professor is selected
-        if (name === "name2") {
-            const selectedProf = prof?.data.find((ele) => ele.name2 === value);
-            if (selectedProf) {
-                updatedForm.email = selectedProf.email; // Assuming professor object has an email field
-            } else {
-                updatedForm.email = ""; // Reset email if no professor found
-            }
+      // Auto-fill email when a professor is selected
+      if (name === "name2") {
+        const selectedProf = prof?.data.find((ele) => ele.name2 === value);
+        if (selectedProf) {
+          updatedForm.email = selectedProf.email; // Assuming professor object has an email field
+        } else {
+          updatedForm.email = ""; // Reset email if no professor found
         }
+      }
 
-        return updatedForm;
+      return updatedForm;
     });
-};
+  };
 
 
   const handleSubmit = async (event) => {
@@ -105,8 +105,8 @@ function Project1() {
       formData.append("instituteName", form.instituteName);
       formData.append("edate", form.edate);
       formData.append("degree", form.degree);
-      formData.append("name2",form.name2);
-      formData.append("email",form.email);
+      formData.append("name2", form.name2);
+      formData.append("email", form.email);
       formData.append("department", form.department);
       formData.append("research", form.research);
       formData.append("workarea", form.workarea);
@@ -127,7 +127,7 @@ function Project1() {
             `/formsend1/${editData._id}`,
             formData,
             {
-              headers: {Authorization:localStorage.getItem('token')},
+              headers: { Authorization: localStorage.getItem('token') },
             }
           );
 
@@ -160,7 +160,7 @@ function Project1() {
   return (
     <div>
       <h2>{editData ? "Edit Application Form" : "Application Form"}</h2>
-      <h1> 
+      <h1>
       </h1>
       <form
         onSubmit={handleSubmit}
@@ -238,24 +238,24 @@ function Project1() {
         <div className="form-group">
           <label>Select Professor</label>
           <select value={form.name2 || ""} name="name2" onChange={handleChange}>
-  <option value="">Select</option>
-  {prof?.data?.map((ele) => (
-    <option key={ele._id} value={ele.name2}>
-      {ele.name2}
-    </option>
-  ))}
-</select>
+            <option value="">Select</option>
+            {prof?.data?.map((ele) => (
+              <option key={ele._id} value={ele.name2}>
+                {ele.name2}
+              </option>
+            ))}
+          </select>
         </div>
         <div className="form-group">
           <label>Selected Professor email id</label>
           <input
-          type="text"
+            type="text"
             value={form.email}
             name="email"
-            
+
           />
-           
-          
+
+
         </div>
         <div className="form-group">
           <label>Select department stream</label>
@@ -307,7 +307,7 @@ function Project1() {
               type="text"
               name="ResearchExp"
               value={form.ResearchExp}
-              style={{width:"390px"}}
+              style={{ width: "390px" }}
               onChange={handleChange}
               placeholder="Write about Research Experience"
               required
