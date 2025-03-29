@@ -60,7 +60,7 @@ function App(props) {
         <Route path="/dashboard" element={<PrivateRoute><DashBoard /></PrivateRoute>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/professor" element={<PrivateRoute><Professor /></PrivateRoute>} />
+        <Route path="/professors" element={<PrivateRoute><Professor /></PrivateRoute>} />
         <Route path="/professorAcc" element={<PrivateRoute><ProfessorAcc /></PrivateRoute>} />
         <Route path="/project1" element={<PrivateRoute><Project1 /></PrivateRoute>} />
         <Route path="/projectlist" element={<PrivateRoute><ProjectList /></PrivateRoute>} />

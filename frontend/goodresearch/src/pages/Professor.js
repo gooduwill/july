@@ -53,21 +53,24 @@ export default function Professor() {
         </button>
       </form>
 
+
+    <div>
       {user1.length > 0 ? (
-  user1.map((prof) => (
-    <div key={prof._id}>
-      <p><strong>Name:</strong> {prof.name2}</p>
-      <p><strong>Workarea:</strong> {prof.workarea}</p>
-      <p><strong>Experience:</strong> {prof.area}</p>
-      <img src={prof.image} alt={prof.name2} width="100" />
+     user1.map((ele) => (
+     <div key={ele._id}>
+      <p><strong>Name:</strong> {ele.name2}</p>
+      <p><strong>Workarea:</strong> {ele.workarea}</p>
+      <p><strong>Experience:</strong> {ele.area}</p>
+      <img src={ele.image} alt={ele.name2} width="100" />
       <br />
-      <Link to={`/user-show1/${prof._id}`} style={{ marginLeft: "10px" }}>Show</Link>
+      <Link to={`/user-show1/${ele._id}`} style={{ marginLeft: "10px" }}>Show</Link>
 
     </div>
   ))
 ) : (
-  searchwarea && <p>User not found.</p>
+  searchwarea && <p>Professor not found.</p>
 )}
+  </div>
   </div>
   )
 }

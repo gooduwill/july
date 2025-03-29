@@ -34,7 +34,7 @@ export default function Account(){
                     Edit Professor
                 </button>
             ) : (
-                <p>No professor found with this email.</p>
+                <p>...</p>
             )}      
 
             

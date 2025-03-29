@@ -2,14 +2,15 @@
   "name": "goodresearch",
   "version": "0.1.0",
   "private": true,
-  
   "dependencies": {
     "cra-template": "1.2.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.1.1",
     "react-scripts": "5.0.1",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "sweetalert2": "^11.17.2",
+    "sweetalert2-react-content": "^5.1.0"
   },
   "scripts": {
     "start": "react-scripts start",

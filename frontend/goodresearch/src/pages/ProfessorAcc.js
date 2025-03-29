@@ -48,9 +48,16 @@ export default function ProfessorAcc() {
     } else if (form.area.trim().length < 3 || form.area.trim().length > 100) {
       errors.area = "Research experience should be between 3 to 100 characters";
     }
+    if (form.workarea.trim().length === 0) {
+      errors.workarea = "Research work area is required";
+    } else if (form.workarea.trim().length < 3 || form.workarea.trim().length > 100) {
+      errors.workarea = "Research experience should be between 3 to 100 characters";
+    }
     setClientErrors(errors);
     return errors;
   };
+  
+  
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -108,7 +115,7 @@ export default function ProfessorAcc() {
   
   return (
     <div>
-      <h1>{prof.peditId ? "Edit" : "Add"} Professor</h1>
+      <h1>{prof.peditId ? "Edit" : "Create"} Professor Account</h1>
 
       {serverErrors.length > 0 && (
         <div>
@@ -172,6 +179,8 @@ export default function ProfessorAcc() {
               onChange={(e) => setForm({ ...form, workarea: e.target.value })}
               placeholder="Enter your workarea"
             />
+              {clientErrors.workarea && <span style={{ color: "red" }}>{clientErrors.workarea}</span>}
+
             </label>
         </div>
         <div style={{ textAlign: "center" }}>
