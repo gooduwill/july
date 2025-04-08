@@ -138,71 +138,7 @@ const FormsendValidationSchema={
 
    
 }
-//module.exports=FormsendValidationSchema
 export default FormsendValidationSchema;
 
 
-/*const FormsendValidationSchema = {
-    name: {
-        in: ['body'],
-        exists: {
-            errorMessage: 'name field is required'
-        },
-        notEmpty: {
-            errorMessage: 'name cannot be empty'
-        },
-        isLength: {
-            options: { min: 3, max: 20 },
-            errorMessage: 'name should be in between 3 to 20 characters'
-        }
-    },
 
-    instituteName: {
-        in: ['body'],
-        exists: {
-            errorMessage: 'institute name field is required'
-        },
-        notEmpty: {
-            errorMessage: 'institute name cannot be empty'
-        },
-        isLength: {
-            options: { min: 3, max: 20 },
-            errorMessage: 'institute name should be in between 3 to 20 characters'
-        }
-    },
-
-    file: {
-        in: ['body', 'files'], // Check both body and files
-        exists: {
-            errorMessage: 'file is required'
-        },
-        custom: {
-            options: (value, { req }) => {
-                // Check if a file is uploaded
-                if (!req.files || !req.files.file) {
-                    throw new Error('File is required');
-                }
-                const file = req.files.file;
-
-                // Validate file type
-                const allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
-                if (!allowedTypes.includes(file.mimetype)) {
-                    throw new Error('Invalid file type. Only JPEG, PNG, and PDF are allowed.');
-                }
-
-                // Validate file size (example: 2 MB limit)
-                const maxSize = 2 * 1024 * 1024; // 2 MB
-                if (file.size > maxSize) {
-                    throw new Error('File size exceeds 2 MB limit.');
-                }
-
-                return true; // If all checks pass
-            }
-        }
-    }
-};
-*/
-
-
-
-//module.exports = FormsendValidationSchema;

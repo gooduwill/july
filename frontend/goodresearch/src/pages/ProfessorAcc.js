@@ -56,9 +56,6 @@ export default function ProfessorAcc() {
     setClientErrors(errors);
     return errors;
   };
-
-
-
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,7 +64,6 @@ export default function ProfessorAcc() {
       return;
     }
     setClientErrors({});
-
     try {
       const formData = new FormData();
       formData.append("name2", form.name2);
@@ -90,6 +86,7 @@ export default function ProfessorAcc() {
             },
           }
         );
+        console.log('data to be send',response.data)
         profDispatch({ type: "update_prof", payload: response.data });
       } else {
         response = await axiosInstance.post("/users/prof", formData, {

@@ -49,132 +49,132 @@ const transporter = nodemailer.createTransport({
 formsendCltr.create = [
 
     upload.fields([
-        {name:'attachment', maxCount:1},
-        {name:'attachment2', maxCount:1},
+        { name: 'attachment', maxCount: 1 },
+        { name: 'attachment2', maxCount: 1 },
 
 
     ]), // Add the upload middleware here
     checkSchema(FormsendValidationSchema), // Apply the validation schema here
 
-    async(req, res) => {
-        try{        
-              
+    async (req, res) => {
+        try {
+
             console.log('Incoming request:', req.body);
             console.log('Incoming request file:', req.file);
 
-        //const {name, instituteName} = req.body;
-        // console.log('institueName: ' + instituteName);
+            //const {name, instituteName} = req.body;
+            // console.log('institueName: ' + instituteName);
 
 
-        // Handle validation errors
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            console.log('Validation Errors:', errors.array());
-            return res.status(400).json({ errors: errors.array() });
-        }
-        /*const body=req.body;
-        const user= User.create(body)
-        res.status(201).json(user) */
-        const { name,applypost, instituteName, edate, degree,name2,email, department, research, workarea,ResearchExp,id } = req.body;
-        const files = req.files;
-       // const file2=req.file;
-        console.log(req.body);
-        const attachmentFile=files.attachment[0];
-        const attachment2File=files.attachment2[0];
+            // Handle validation errors
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                console.log('Validation Errors:', errors.array());
+                return res.status(400).json({ errors: errors.array() });
+            }
+            /*const body=req.body;
+            const user= User.create(body)
+            res.status(201).json(user) */
+            const { name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp, id } = req.body;
+            const files = req.files;
+            // const file2=req.file;
+            console.log(req.body);
+            const attachmentFile = files.attachment[0];
+            const attachment2File = files.attachment2[0];
 
-    
+
             const user = new User({
-            name,applypost, instituteName, edate, degree, name2,email, department, research, workarea,ResearchExp, id, attachments: [{
-                data: fs.readFileSync(attachmentFile.path),
-               contentType: attachmentFile.mimetype,
-                filename: attachmentFile.originalname
-            },
-            //{
-             //   data: fs.readFileSync(file.path),
-             //  contentType: file.mimetype,
-             //   filename: file.originalname
-            //}
-             {
-                data: fs.readFileSync(attachment2File.path),
-               contentType: attachment2File.mimetype,
-                filename: attachment2File.originalname
-            }]
-        })
-        user.save()
-        res.status(201).json(user);
-
-       
-
-
-    
-
-        // Check if file is uploaded
-        
-       /* if (!file) {
-            console.log("File not uploaded. Check file input name in frontend.");
-            return res.status(400).json({ message: "File not uploaded. Check file input name in frontend." });
-        }
-
-        console.log('Uploaded File:', file);*/
-
-        
-        //const filePath = path.join(__dirname, 'uploads', files.filename);
-        
-       
-        // Prepare the email with the attachment
-           const mailOptions = {
-            from: 'p85mount23@gmail.com',
-
-            bcc: email,
-            subject: 'Application Form with Attachment',
-            text: `A new form has been submitted with the following details:\n\n` +
-                `Name: ${name}\n` +
-                `Post Applied: ${applypost}\n\n` +
-                `Institute: ${instituteName}\n\n` +
-                `Highest Degree: ${degree}\n\n` +
-                `Prof name: ${name2}\n\n` +
-                `Department: ${department}\n\n` +     
-                `Research Area: ${research}\n\n` +
-                `Work Area: ${workarea}\n\n` +
-                `Research Experience: ${ResearchExp}\n\n`,
-               // `Attached file: ${file.originalname}`,
-            attachments: [
-                {
-                   filename: attachmentFile.originalname,
-                    path: attachmentFile.path // Attach the uploaded file
+                name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp, id, attachments: [{
+                    data: fs.readFileSync(attachmentFile.path),
+                    contentType: attachmentFile.mimetype,
+                    filename: attachmentFile.originalname
                 },
-               // {
-                //    filename: file.originalname,
-                 //    path: filePath // Attach the uploaded file
-                // },
+                //{
+                //   data: fs.readFileSync(file.path),
+                //  contentType: file.mimetype,
+                //   filename: file.originalname
+                //}
                 {
-                    filename: attachment2File.originalname,
-                     path: attachment2File.path // Attach the uploaded file
-                 },
-            ]
-        
-        }
-    
-    
-        // Log email options
-        console.log('Email Options:', mailOptions)
+                    data: fs.readFileSync(attachment2File.path),
+                    contentType: attachment2File.mimetype,
+                    filename: attachment2File.originalname
+                }]
+            })
+            user.save()
+            res.status(201).json(user);
 
-        // Send the email
-        transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-                console.log("Email send error:", error);
-                return res.status(500).json({ message: 'Error sending email', error });
+
+
+
+
+
+            // Check if file is uploaded
+
+            /* if (!file) {
+                 console.log("File not uploaded. Check file input name in frontend.");
+                 return res.status(400).json({ message: "File not uploaded. Check file input name in frontend." });
+             }
+     
+             console.log('Uploaded File:', file);*/
+
+
+            //const filePath = path.join(__dirname, 'uploads', files.filename);
+
+
+            // Prepare the email with the attachment
+            const mailOptions = {
+                from: 'p85mount23@gmail.com',
+
+                bcc: email,
+                subject: 'Application Form with Attachment',
+                text: `A new form has been submitted with the following details:\n\n` +
+                    `Name: ${name}\n` +
+                    `Post Applied: ${applypost}\n\n` +
+                    `Institute: ${instituteName}\n\n` +
+                    `Highest Degree: ${degree}\n\n` +
+                    `Prof name: ${name2}\n\n` +
+                    `Department: ${department}\n\n` +
+                    `Research Area: ${research}\n\n` +
+                    `Work Area: ${workarea}\n\n` +
+                    `Research Experience: ${ResearchExp}\n\n`,
+                // `Attached file: ${file.originalname}`,
+                attachments: [
+                    {
+                        filename: attachmentFile.originalname,
+                        path: attachmentFile.path // Attach the uploaded file
+                    },
+                    // {
+                    //    filename: file.originalname,
+                    //    path: filePath // Attach the uploaded file
+                    // },
+                    {
+                        filename: attachment2File.originalname,
+                        path: attachment2File.path // Attach the uploaded file
+                    },
+                ]
+
             }
 
-            console.log('Email sent successfully:', info.response);
-            res.status(200).json({ message: 'Email sent successfully', info });
-        });
-    }
-    catch(error){
-        console.error("Unexpected error:", error);
+
+            // Log email options
+            console.log('Email Options:', mailOptions)
+
+            // Send the email
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log("Email send error:", error);
+                    return res.status(500).json({ message: 'Error sending email', error });
+                }
+
+                console.log('Email sent successfully:', info.response);
+                res.status(200).json({ message: 'Email sent successfully', info });
+            });
+        }
+        catch (error) {
+            console.error("Unexpected error:", error);
             res.status(500).json({ message: 'Internal server error', error });
+        }
     }
-}
 ];
 
 
@@ -214,8 +214,8 @@ formsendCltr.remove = async (req, res) => {
 }
 formsendCltr.update = [
     upload.fields([
-        {name:'attachment', maxCount:1},
-        {name:'attachment2', maxCount:1},]),
+        { name: 'attachment', maxCount: 1 },
+        { name: 'attachment2', maxCount: 1 },]),
     //upload.single('attachment'), // Add the upload middleware here
     checkSchema(FormsendValidationSchema), // Apply the validation schema here
 
@@ -231,12 +231,12 @@ formsendCltr.update = [
 
         const id = req.params.id;
         const body = req.body;
-        const { name,applypost, instituteName, edate, degree,name2,email, department, research, workarea,ResearchExp } = req.body;
+        const { name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp } = req.body;
         const files = req.files;
-        const attachmentFile=files.attachment[0];
-        const attachment2File=files.attachment2[0];
+        const attachmentFile = files.attachment[0];
+        const attachment2File = files.attachment2[0];
         const useruse = new User({
-            name,applypost, instituteName, edate, degree,name2,email, department, research, workarea,ResearchExp, id, attachments:[ {
+            name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp, id, attachments: [{
                 data: fs.readFileSync(attachmentFile.path),
                 contentType: attachmentFile.mimetype,
                 filename: attachmentFile.originalname
@@ -256,7 +256,7 @@ formsendCltr.update = [
 
             res.json(user)
         }
-        catch(err) {
+        catch (err) {
             //console.log(err)
             res.status(500).json({ error: 'something went wrong' })
         }
@@ -269,11 +269,11 @@ formsendCltr.update = [
 
         //const { name, instituteName } = req.body;
         //const filePath = path.join(__dirname, 'uploads', file.filename);
-        
-        
-            
+
+
+
         // Prepare the email with the attachment
-           const mailOptions = {
+        const mailOptions = {
             from: 'p85mount23@gmail.com',
 
             bcc: email,
@@ -284,29 +284,29 @@ formsendCltr.update = [
                 `Institute: ${instituteName}\n\n` +
                 `Highest degree: ${degree}\n\n` +
                 `Prof name: ${name2}\n\n` +
-                `Department: ${department}\n\n` +     
+                `Department: ${department}\n\n` +
                 `Research Area: ${research}\n\n` +
                 `Work Area: ${workarea}\n\n` +
-                `Research Experience: ${ResearchExp}\n\n` ,
-                //`Attached file: ${file.originalname}`,
-                attachments: [
-                    {
-                       filename: attachmentFile.originalname,
-                        path: attachmentFile.path // Attach the uploaded file
-                    },
-                   // {
-                    //    filename: file.originalname,
-                     //    path: filePath // Attach the uploaded file
-                    // },
-                    {
-                        filename: attachment2File.originalname,
-                         path: attachment2File.path // Attach the uploaded file
-                     },
-                ]
+                `Research Experience: ${ResearchExp}\n\n`,
+            //`Attached file: ${file.originalname}`,
+            attachments: [
+                {
+                    filename: attachmentFile.originalname,
+                    path: attachmentFile.path // Attach the uploaded file
+                },
+                // {
+                //    filename: file.originalname,
+                //    path: filePath // Attach the uploaded file
+                // },
+                {
+                    filename: attachment2File.originalname,
+                    path: attachment2File.path // Attach the uploaded file
+                },
+            ]
         };
-    
-    
-   
+
+
+
         // Log email options
         console.log('Email Options:', mailOptions);
 

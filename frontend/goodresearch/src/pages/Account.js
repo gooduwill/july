@@ -10,7 +10,7 @@ export default function Account() {
 
     useEffect(() => {
         if (prof?.data?.length > 0 && userState?.user?.email) {
-            const foundProf = prof.data.find((ele) => ele.email === userState.user.email);
+            const foundProf = prof.data.find((ele) => ele.email === userState.user.email);//find prof by loggedin email
             setMatchedProf(foundProf || null);
         }
     }, [prof.data, userState.user.email]);

@@ -11,10 +11,10 @@ app.use(cors()); //third party middleware(application+3rd party)
 app.use(express.json()); // Parses JSON bodies it is inbuilt middleware(application+inbuilt)
 app.use(express.urlencoded({ extended: true }))
 
-//application level middleware
+//application level middleware is called for every request
 app.use(function(req,res,next){
     console.log(`${new Date()}-${req.method}`)
-    next();
+    next();// after next() then only.. next middleware function is called
 
 })
 app.use("/api",routes);

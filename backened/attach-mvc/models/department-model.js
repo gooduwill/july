@@ -1,27 +1,27 @@
-import mongoose, {Schema, model} from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 const researchSchema = new Schema({
-    topic: {
-      type: String,
-      required: true,
-    },
-    workarea: {
-      type: [String], // Array of workareas (meta, dgs, slot, graphene, etc.)
-      required: true,
-    }
-  });
-  
-  const departmentSchema = new Schema({
-    stream: {
-      type: String,
-      required: true,
-    
-    },
-    research: {
-      type: [researchSchema],
-      required: true,
-    }
-  });
-  
+  topic: {
+    type: String,
+    required: true,
+  },
+  workarea: {
+    type: [String], // Array of workareas (meta, dgs, slot, graphene, etc.)
+    required: true,
+  }
+});
+
+const departmentSchema = new Schema({
+  stream: {
+    type: String,
+    required: true,
+
+  },
+  research: {
+    type: [researchSchema],
+    required: true,
+  }
+});
+
 
 /*const departmentSchema=new Schema({
     department:String      
@@ -43,9 +43,9 @@ export default Department;*/
     },
 
 })*/
-    
-   // const Department=model('Department', departmentSchema)
 
-const Department=mongoose.model('Department', departmentSchema)
+// const Department=model('Department', departmentSchema)
+
+const Department = mongoose.model('Department', departmentSchema)
 
 export default Department;

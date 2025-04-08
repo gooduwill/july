@@ -5,11 +5,7 @@ const professorSchema=new Schema({
     area:String,
     email:String,
     image:String,
-    workarea:String,
-
-    
-    
-    
+    workarea:String,   
 
 },{timestamps:true})
 const Professor=model('Professor', professorSchema)

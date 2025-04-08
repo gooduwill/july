@@ -24,12 +24,8 @@ const profInitialState = {
 };
 function AuthProvider(props) {
   const [userState, userDispatch] = useReducer(userReducer, initialState);
-  const [user2State, user2Dispatch] = useReducer(user2Reducer, userInitialState)
+  const [user2State, user2Dispatch] = useReducer(user2Reducer, userInitialState);
   const [prof, profDispatch] = useReducer(userReducer1, profInitialState);
-
-
-
-
   const [depart, setDepart] = useState([]);
   const [applypost, setApplypost] = useState([]);
   const navigate = useNavigate();
@@ -41,7 +37,7 @@ function AuthProvider(props) {
   const handleLogout = () => {
     userDispatch({ type: 'LOGOUT', payload: { isLoggedIn: false, user: null } });
 
-  }  //spreading state so that isLoggedIn and user1 will be available
+  }  
   useEffect(() => {
     (async () => {
       if (localStorage.getItem('token')) {
@@ -66,7 +62,7 @@ function AuthProvider(props) {
       .then((response) => {
         const result = response.data;
         console.log("result", result);
-        setApplypost(result);
+        setApplypost(result);//using usestate
       })
       .catch((err) => {
         console.log(err);
@@ -85,7 +81,7 @@ function AuthProvider(props) {
         console.log(err);
       });
   }, []);
-  const handleEdit = (id) => {
+    const handleEdit = (id) => {
     user2Dispatch({ type: "set_edit_id", payload: id });
     navigate("/Project1"); // Navigate to the form for editing
   };
@@ -109,25 +105,9 @@ function AuthProvider(props) {
 
 
   }, []);
-
-
-
   if (localStorage.getItem('token') && !userState.user) {  //to stop going to login after reload
     return <p>loading....</p>
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <div>
       <AuthContext.Provider value={{ userState, userDispatch, user2State, editData, depart, applypost, prof, profDispatch, handleEdit, user2Dispatch, handleLogin, handleLogout }}>

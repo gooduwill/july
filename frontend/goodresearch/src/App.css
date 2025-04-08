@@ -9,10 +9,6 @@
   height: 40vmin;
   pointer-events: none;
 }
-#top-nav{
-  list-style-type: none;
-  
-}
  li{
   display: inline;
   margin-right: 20px;
@@ -65,15 +61,6 @@
   height:25px;
   margin-top: 20px;
 }
-/*.register-form{
-  background-image: url('/download.png');
-  background-size: cover;
-  background-position: center;
-  min-height:100vh;
-  width:100%;
-  display: flex;
-
-} */
 .container{
   display: block; /* Ensure each list item is displayed as a block */
   margin-bottom: 10px; /* Add spacing between items */

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-//import { format } from "date-fns";
 import AuthContext from "../context/AuthContext";
 import "../App.css"
 import axiosInstance from "./axiosInstance";
@@ -29,15 +28,7 @@ function Project1() {
 
 
 
-  /*useEffect(() => {
-    if (editData) {
-      // If there's editData, prefill the form fields
-      setForm({
-        ...editData, // This will set the form values to the existing values
-      });
-    }
-  }, [editData]); // Only run when editData changes */
-  useEffect(() => {
+    useEffect(() => {
     if (editData) {
       setForm({
         ...editData,
@@ -55,19 +46,6 @@ function Project1() {
   }, [editData, prof?.data]);
 
 
-  /*const handleChange = (event) => {
-    const { name, value, files } = event.target;
-
-    setForm((currentForm) => ({
-      ...currentForm,
-      [name]: files ? files[0] : value,
-    }));
-
-    if (files) {
-      console.log("File selected:", files[0]);
-    }
-
-  };*/
   const handleChange = (event) => {
     const { name, value, files } = event.target;
 
@@ -77,7 +55,7 @@ function Project1() {
         [name]: files ? files[0] : value,
       };
 
-      // Auto-fill email when a professor is selected
+      // Auto-fill email when a professor is selected from dropdown
       if (name === "name2") {
         const selectedProf = prof?.data.find((ele) => ele.name2 === value);
         if (selectedProf) {
@@ -114,11 +92,6 @@ function Project1() {
       formData.append("ResearchExp", form.ResearchExp);
       formData.append("attachment", form.attachment);
       formData.append("attachment2", form.attachment2);
-
-      // Log the FormData contents
-      // for (const [key, value] of formData.entries()) {
-      //  console.log(`${key}:`, value);
-      //}
 
       try {
         if (editData) {

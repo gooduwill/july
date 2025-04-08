@@ -15,12 +15,12 @@ function App(props) {
   const {userState,handleLogin,handleLogout}=useContext(AuthContext);
   const navigate=useNavigate();
   return (
-    <div className="App">
+    <div className="text-center">
       <h1>oly</h1>
-      <ul id="top-nav">
+      <ul  className='flex justify-center space-x-4 mb-4'>
       <li><Link to="/">Home</Link></li>
 
-        {!userState.isLoggedIn?(
+        {!userState.isLoggedIn?( 
           <> 
           <li><Link to="/login">Login</Link></li>
         <li><button onClick={handleLogin}>login</button></li>
@@ -53,13 +53,6 @@ function App(props) {
         <Route path="/register" element={<Register/>} />
         <Route path="/project1" element={<Project1/>} />
         <Route path="/projectlist" element={<ProjectList/>} />
-
-
-
-
-
-
-
       </Routes>
     </div>
   );

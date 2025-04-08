@@ -18,7 +18,6 @@ export default function Login() {
     });
     const [clientErrors, setClientErrors] = useState(null);
     const [serverErrors, setServerErrors] = useState([]);
-    //const clientValidationsErrors={};
     const runClientValidations = () => {
         const errors = {};
         if (formData.password.trim().length === 0) {
@@ -27,28 +26,22 @@ export default function Login() {
         }
         if (formData.email.trim().length === 0) {
             errors.email = 'email is required'
-
         }
-        //if(formData.role.trim().length===0){
-        //clientValidationsErrors.role='role is required'
-
-        // }
-        setClientErrors(errors);
+                setClientErrors(errors);
         return errors;
     }
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // runClientValidations();
         const clientErrors = runClientValidations();
-
         console.log(formData)
         if (Object.keys(clientErrors).length == 0) {
             try {
                 const response = await axiosInstance.post('/users/login', formData)
-                console.log(response.data.token)
+                //we got token
                 localStorage.setItem('token', response.data.token)
+                //we have to send token to authenticate after verification, through request object we get data from account..if its loggedin then you will get data
                 const userResponse = await axiosInstance.get('/users/account', { headers: { Authorization: localStorage.getItem('token') } })
-                console.log('user response', userResponse.data)
+                // we got user data from account
                 handleLogin(userResponse.data)
                 toast.success("Login successful! Redirecting...", { position: "top-right" });
 
@@ -57,12 +50,8 @@ export default function Login() {
 
                 }, 2000);
 
-
-
-
             } catch (err) {
-                // console.log(err)
-                if (err.response) {
+                  if (err.response) {
 
                     setServerErrors(Array.isArray(err.response.data.errors) ? err.response.data.errors : [{ msg: err.response.data.errors }]);
                     if (Array.isArray(err.response.data.errors)) {

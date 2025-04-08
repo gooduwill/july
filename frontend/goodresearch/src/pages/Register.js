@@ -35,7 +35,7 @@ export default function Register() {
         if (Object.keys(clientValidationsErrors).length == 0) {
             try {
                 const response = await axiosInstance.post('/users/register', formData)
-                console.log(response.data)
+                console.log('check response',response.data)
                 navigate('/login');
 
             } catch (err) {
