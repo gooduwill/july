@@ -21,20 +21,38 @@ import AuthProvider from './component/AuthProvider';
 import { useContext, useState, useEffect } from 'react';
 import PrivateRoute from './component/PrivateRoute';
 import ProfessorDetails from './pages/ProfessorDetails';
-import Hooter from './pages/Hooter';
+import Hooter from './pages/Footer';
 import { ToastContainer } from "react-toastify";
-
+/**
+ * App - Main application component responsible for routing and layout.
+ * 
+ * This component handles the layout, routes, and rendering of different pages.
+ * It also conditionally sets the background image for certain routes and renders
+ * a navbar and toast notifications globally. It uses React Router for navigating 
+ * between pages and rendering different components based on the route.
+ * 
+ * Components and Features:
+ * - Navbar: Rendered on all pages.
+ * - ToastContainer: Displays toast notifications at the top-right of the screen.
+ * - Background Image: Applies a background image for certain pages (login, register).
+ * - Routes: Configures different routes with conditional access (PrivateRoute) for protected pages.
+ * 
+ * Context:
+ * - `userState` and `user2State`: Access user-related state from `AuthContext`.
+ * - `handleLogout`: A function to log out the user (provided by `AuthContext`).
+ * 
+ * Arguments:
+ * - `props`: The props passed to this component (not used directly in this implementation).
+ * 
+ * Returns:
+ * - A JSX element representing the app layout, including routes, background, and navbar.
+ */
 function App(props) {
   const { userState, handleLogout } = useContext(AuthContext);
   const { user2State, user2Dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const pagesWithBackground = ["/login", "/register"];
-
-
-
-
-
 
   return (
     <div

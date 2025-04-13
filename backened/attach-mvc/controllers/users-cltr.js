@@ -4,6 +4,15 @@ import bcryptjs from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 const usersCltr = {};
+
+// Registers a new user.
+// - Validates the request body using express-validator.
+// - Requires `email`, `password`, and `role` in the request body.
+// - If it's the first user, assigns the role as 'admin' automatically.
+// - Hashes the password using bcrypt before saving.
+// - Saves the user to the database and returns a 201 response on success.
+// - Returns a 400 status for validation or missing field errors.
+// - Catches and logs any server errors and returns a 500 response.
 usersCltr.register = async (req, res) => {
     try {
         // Validate the incoming request
@@ -44,6 +53,14 @@ usersCltr.register = async (req, res) => {
     }
 };
 
+// Logs in an existing user.
+// - Validates request body using express-validator.
+// - Checks if the user exists with the given email.
+// - Compares the provided password with the hashed one in the database.
+// - If valid, generates a JWT token (valid for 7 days) containing `userId` and `role`.
+// - Returns the token to the client on successful login.
+// - Returns 404 errors if email or password is invalid.
+// - Handles and logs server errors silently (consider returning 500 for better UX).
 usersCltr.login = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -72,6 +89,12 @@ usersCltr.login = async (req, res) => {
 
     }
 }
+
+// Returns the currently logged-in user's account information.
+// - This is a protected route (accessible only after authentication).
+// - Fetches the user based on `userId` from `req.currentUser` (set in auth middleware).
+// - Returns the user's details from the database.
+// - Handles any server-side errors with a 500 response.
 usersCltr.account = async (req, res) => { // this is protected route if user is logged in then only we can access it
     try {
         const user = await Good.findById(req.currentUser.userId)// we get data from database using request from authenticate// req object are same because they are  passed by reference

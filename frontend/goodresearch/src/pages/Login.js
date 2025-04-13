@@ -7,6 +7,29 @@ import { useContext } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axiosInstance from "./axiosInstance"
+/**
+ * Login - Handles the user login process including form validation, authentication, and error handling.
+ *
+ * This component allows users to log in to the platform by entering their email and password.
+ * It includes client-side validation for required fields, submits the login request to the backend,
+ * handles the server's response (successful login or error), and redirects the user to the dashboard upon successful login.
+ *
+ * Features:
+ * - Form with fields for email and password.
+ * - Client-side validation to ensure both fields are filled before submission.
+ * - Server-side error handling for invalid credentials or other issues.
+ * - Stores the authentication token in localStorage upon successful login.
+ * - Redirects the user to the dashboard page (`/dashBoard`) after a successful login.
+ * - Displays error messages using `toast` notifications for both client and server-side errors.
+ *
+ * Hooks used:
+ * - `useState` to manage form data, client and server errors.
+ * - `useContext` to access `handleLogin` function from `AuthContext` to store the logged-in user's data.
+ * - `useNavigate` for redirecting to the dashboard after a successful login.
+ *
+ * @returns JSX rendering the login form and handling form submission.
+ */
+
 export default function Login() {
     const navigate = useNavigate();
     const { handleLogin } = useContext(AuthContext);

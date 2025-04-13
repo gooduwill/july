@@ -6,6 +6,10 @@ import { upload } from "../config/cloudinaryConfig.js";
 
 const professorCltr = {};
 
+// Fetches professors based on a specific work area provided in the request parameters.
+// - If no professors are found for the given work area, returns a 404 error.
+// - Otherwise, returns the list of matching professors.
+// - Handles any internal server errors and logs them.
 professorCltr.list = async (req, res) => {
   try {
     const { workarea } = req.params;
@@ -20,7 +24,9 @@ professorCltr.list = async (req, res) => {
   }
 };
 
-//Fetch all professors
+// Retrieves and returns a list of all professors in the database.
+// - Sends the entire professor collection as a JSON response.
+// - Handles and logs any server-side errors.
 professorCltr.show = async (req, res) => {
   try {
     const professors = await Professor.find();
@@ -31,7 +37,12 @@ professorCltr.show = async (req, res) => {
   }
 };
 
-// Create a professor with an image upload
+// Creates a new professor entry with optional image upload.
+// - Validates the request using `express-validator`.
+// - Accepts professor details (`name2`, `area`, `email`, `workarea`) from the request body.
+// - If an image is uploaded, stores the Cloudinary path in the DB.
+// - Returns the newly created professor object on success.
+// - Handles validation errors and server exceptions.
 professorCltr.create = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -51,6 +62,14 @@ professorCltr.create = async (req, res) => {
   }
 };
 
+// Updates an existing professor entry by ID with optional image update.
+// - Validates the request body.
+// - Retrieves the professor ID from request parameters.
+// - Updates fields (`name2`, `area`, `email`, `workarea`) and image (if present).
+// - Uses `findOneAndUpdate` with `{ new: true }` to return the updated document.
+// - Returns a 404 if the professor doesn't exist.
+// - Handles validation and server-side errors.
+
 professorCltr.update = async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -64,9 +83,6 @@ professorCltr.update = async (req, res) => {
 
     const updateData = { name2, area, email, workarea };
     if (image) updateData.image = image;
-
-    //console.log("Update Data:", updateData);
-    //console.log("Updating professor with ID:", req.params.id);
 
     const professor = await Professor.findOneAndUpdate(
       { _id: req.params.id },

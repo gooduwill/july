@@ -4,7 +4,29 @@ import axios from "axios";
 import AuthContext from "../context/AuthContext";
 import "../App.css"
 import axiosInstance from "./axiosInstance";
-
+/**
+ * Project1 - A component for submitting and editing an application form for a project or academic post
+ * 
+ * This component allows users to fill out and submit an application form. It can also be used to edit an existing
+ * application by pre-filling the form fields with the provided data. The form includes fields like personal information, 
+ * educational background, research experience, and file attachments. The component sends the form data to a server via 
+ * a POST or PUT request depending on whether the user is creating a new application or editing an existing one.
+ * 
+ * Features:
+ * - Displays a form to apply for a project or academic position.
+ * - Allows users to select and autofill professor email based on selected professor.
+ * - Supports file uploads for CV and photo.
+ * - Submits data to the server and updates the user state via context dispatch.
+ * - Displays status messages to inform the user about the submission result.
+ * 
+ * Dependencies:
+ * - `useContext` to access data from the `AuthContext`, including professor data, department information, and application posts.
+ * - `useState` to manage form data, submission status, and other state variables.
+ * - `useEffect` to populate the form with data if editing an existing application.
+ * - `axiosInstance` for sending the POST/PUT request to the server with form data.
+ * 
+ * Intended to be used by users who want to apply for a project or academic position, as well as edit existing applications.
+ */
 
 function Project1() {
   const { user2Dispatch, depart, applypost, editData, prof, profDispatch } = useContext(AuthContext);
@@ -143,7 +165,9 @@ function Project1() {
         <div className="form-group">
           <label htmlFor="name">
             Enter your name:
-            <input
+          </label>
+          <input
+              class="form-control"
               type="text"
               name="name"
               value={form.name}
@@ -151,11 +175,11 @@ function Project1() {
               placeholder="Enter Name"
               required
             />
-          </label>
         </div>
         <div className="form-group">
           <label>Select post applied</label>
           <select
+            class="form-control"
             value={form.applypost}
             name="applypost"
             onChange={handleChange}
@@ -172,7 +196,10 @@ function Project1() {
         <div className="form-group">
           <label htmlFor="instituteName">
             Enter your institute name:
-            <input
+            </label>
+
+            <input 
+              class="form-control"
               type="text"
               name="instituteName"
               value={form.instituteName}
@@ -180,12 +207,13 @@ function Project1() {
               placeholder="Enter institute Name"
               required
             />
-          </label>
         </div>
         <div className="form-group">
           <label htmlFor="dateofbirth">
             Enter your Date of Birth
+            </label>
             <input
+              class="form-control"
               type="date"
               value={form.edate}
               name="edate"
@@ -193,12 +221,15 @@ function Project1() {
               placeholder="Enter date of Birth"
               required
             />
-          </label>
+          
         </div>
         <div className="form-group">
           <label htmlFor="degree">
             Enter Highest degree:
+            </label>
+
             <input
+              class="form-control"
               type="text"
               name="degree"
               value={form.degree}
@@ -206,11 +237,10 @@ function Project1() {
               placeholder="Enter highest degree"
               required
             />
-          </label>
         </div>
         <div className="form-group">
           <label>Select Professor</label>
-          <select value={form.name2 || ""} name="name2" onChange={handleChange}>
+          <select class="form-control" value={form.name2 || ""} name="name2" onChange={handleChange}>
             <option value="">Select</option>
             {prof?.data?.map((ele) => (
               <option key={ele._id} value={ele.name2}>
@@ -222,6 +252,7 @@ function Project1() {
         <div className="form-group">
           <label>Selected Professor email id</label>
           <input
+            class="form-control"
             type="text"
             value={form.email}
             name="email"
@@ -233,6 +264,7 @@ function Project1() {
         <div className="form-group">
           <label>Select department stream</label>
           <select
+            className="form-control"
             value={form.department}
             name="department"
             onChange={handleChange}
@@ -247,7 +279,7 @@ function Project1() {
         </div>
         <div className="form-group">
           <label>Select research</label>
-          <select value={form.research} name="research" onChange={handleChange}>
+          <select className="form-control" value={form.research} name="research" onChange={handleChange}>
             <option value="">Select</option>
             {depart
               .find((ele) => ele.stream == form.department)
@@ -260,7 +292,7 @@ function Project1() {
         </div>
         <div className="form-group">
           <label>Select work area</label>
-          <select value={form.workarea} name="workarea" onChange={handleChange}>
+          <select className="form-control" value={form.workarea} name="workarea" onChange={handleChange}>
             <option value="">Select</option>
             {depart
               .find((ele) => ele.stream === form.department)
@@ -276,7 +308,9 @@ function Project1() {
         <div className="form-group">
           <label htmlFor="ResearchExp">
             Write about Research Experience:
+            </label>
             <textarea
+              class="form-control"
               type="text"
               name="ResearchExp"
               value={form.ResearchExp}
@@ -285,30 +319,31 @@ function Project1() {
               placeholder="Write about Research Experience"
               required
             />
-          </label>
         </div>
 
         <div className="form-group">
           <label>
             Upload CV:
+            </label>
             <input
+              class="form-control"
               type="file"
               name="attachment"
               onChange={handleChange}
               required
             />
-          </label>
         </div>
         <div className="form-group">
           <label>
             Upload Photo:
+            </label>
             <input
+              class="form-control"
               type="file"
               name="attachment2"
               onChange={handleChange}
               required
             />
-          </label>
         </div>
 
         <br />

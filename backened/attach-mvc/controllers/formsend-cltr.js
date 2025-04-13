@@ -8,6 +8,7 @@ import nodemailer from 'nodemailer';
 import { validationResult, checkSchema } from 'express-validator';
 import FormsendValidationSchema from '../validators/formsend-validation-schema.js';
 import { fileURLToPath } from 'url';
+import dotenv from "dotenv";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,7 +16,7 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
+// Controller object for handling form submission operations
 const formsendCltr = {};
 
 // Configure Multer storage
@@ -40,31 +41,28 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'p85mount23@gmail.com', // Your email address
-        pass: 'uuvmbtqbadxazpkq' // Your email password
+        user: process.env.EMAIL_USER, // Your email address
+        pass: process.env.EMAIL_PASS // Your email password
     }
 });
-
-// Create formsendCltr.create function
+// Create a new form submission with file uploads and send an email with attachments
 formsendCltr.create = [
-
+    // Handle file uploads for attachments
     upload.fields([
         { name: 'attachment', maxCount: 1 },
         { name: 'attachment2', maxCount: 1 },
 
 
-    ]), // Add the upload middleware here
-    checkSchema(FormsendValidationSchema), // Apply the validation schema here
-
+    ]), 
+        // Validate input using schema
+    // Add the upload middleware here
+    checkSchema(FormsendValidationSchema),
+    // Main handler function
     async (req, res) => {
         try {
 
             console.log('Incoming request:', req.body);
             console.log('Incoming request file:', req.file);
-
-            //const {name, instituteName} = req.body;
-            // console.log('institueName: ' + instituteName);
-
 
             // Handle validation errors
             const errors = validationResult(req);
@@ -72,28 +70,20 @@ formsendCltr.create = [
                 console.log('Validation Errors:', errors.array());
                 return res.status(400).json({ errors: errors.array() });
             }
-            /*const body=req.body;
-            const user= User.create(body)
-            res.status(201).json(user) */
             const { name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp, id } = req.body;
             const files = req.files;
-            // const file2=req.file;
             console.log(req.body);
             const attachmentFile = files.attachment[0];
             const attachment2File = files.attachment2[0];
 
-
+            // Save user entry with file data
             const user = new User({
                 name, applypost, instituteName, edate, degree, name2, email, department, research, workarea, ResearchExp, id, attachments: [{
                     data: fs.readFileSync(attachmentFile.path),
                     contentType: attachmentFile.mimetype,
                     filename: attachmentFile.originalname
                 },
-                //{
-                //   data: fs.readFileSync(file.path),
-                //  contentType: file.mimetype,
-                //   filename: file.originalname
-                //}
+
                 {
                     data: fs.readFileSync(attachment2File.path),
                     contentType: attachment2File.mimetype,
@@ -103,24 +93,7 @@ formsendCltr.create = [
             user.save()
             res.status(201).json(user);
 
-
-
-
-
-
-            // Check if file is uploaded
-
-            /* if (!file) {
-                 console.log("File not uploaded. Check file input name in frontend.");
-                 return res.status(400).json({ message: "File not uploaded. Check file input name in frontend." });
-             }
-     
-             console.log('Uploaded File:', file);*/
-
-
-            //const filePath = path.join(__dirname, 'uploads', files.filename);
-
-
+            // Email the submission details along with attachments
             // Prepare the email with the attachment
             const mailOptions = {
                 from: 'p85mount23@gmail.com',
@@ -143,10 +116,6 @@ formsendCltr.create = [
                         filename: attachmentFile.originalname,
                         path: attachmentFile.path // Attach the uploaded file
                     },
-                    // {
-                    //    filename: file.originalname,
-                    //    path: filePath // Attach the uploaded file
-                    // },
                     {
                         filename: attachment2File.originalname,
                         path: attachment2File.path // Attach the uploaded file
@@ -154,12 +123,10 @@ formsendCltr.create = [
                 ]
 
             }
-
-
             // Log email options
             console.log('Email Options:', mailOptions)
 
-            // Send the email
+            // Send the email using configured transporter
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     console.log("Email send error:", error);
@@ -177,7 +144,7 @@ formsendCltr.create = [
     }
 ];
 
-
+// List all submitted form entries from the database
 formsendCltr.list = async (req, res) => {
 
     try {
@@ -190,6 +157,7 @@ formsendCltr.list = async (req, res) => {
         res.status(500).json({ error: 'something went wrong' })
     }
 }
+// Remove a specific form entry by ID
 formsendCltr.remove = async (req, res) => {
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
@@ -212,7 +180,9 @@ formsendCltr.remove = async (req, res) => {
 
     }
 }
+// Update an existing form entry and send updated details via email
 formsendCltr.update = [
+    // Handle updated file uploads
     upload.fields([
         { name: 'attachment', maxCount: 1 },
         { name: 'attachment2', maxCount: 1 },]),
@@ -260,19 +230,8 @@ formsendCltr.update = [
             //console.log(err)
             res.status(500).json({ error: 'something went wrong' })
         }
-        /*if (!file) {
-            console.log("File not uploaded. Check file input name in frontend.");
-            return res.status(400).json({ message: "File not uploaded. Check file input name in frontend." });
-        }
 
-        console.log('Uploaded File:', file);*/
-
-        //const { name, instituteName } = req.body;
-        //const filePath = path.join(__dirname, 'uploads', file.filename);
-
-
-
-        // Prepare the email with the attachment
+        // Email the updated submission details
         const mailOptions = {
             from: 'p85mount23@gmail.com',
 
@@ -288,25 +247,17 @@ formsendCltr.update = [
                 `Research Area: ${research}\n\n` +
                 `Work Area: ${workarea}\n\n` +
                 `Research Experience: ${ResearchExp}\n\n`,
-            //`Attached file: ${file.originalname}`,
             attachments: [
                 {
                     filename: attachmentFile.originalname,
                     path: attachmentFile.path // Attach the uploaded file
                 },
-                // {
-                //    filename: file.originalname,
-                //    path: filePath // Attach the uploaded file
-                // },
                 {
                     filename: attachment2File.originalname,
                     path: attachment2File.path // Attach the uploaded file
                 },
             ]
         };
-
-
-
         // Log email options
         console.log('Email Options:', mailOptions);
 

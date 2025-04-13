@@ -7,7 +7,6 @@ import mongoose from 'mongoose'
  * @returns {Promise<void>} - A promise that resolves when the connection is established.
  */
 const configureDB = async () => {
-    // const dbUrl = 'mongodb://localhost:27017/user-auth'
     try {
         const connect = await mongoose.connect(process.env.DB_URL);
         if (connect) {

@@ -3,6 +3,27 @@ import { useState } from "react"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "./axiosInstance";
+/**
+ * Register - A component for user registration, allowing users to sign up with an email, password, and role.
+ * 
+ * This component provides a form for users to register with the following fields:
+ * - Email: A unique identifier for the user.
+ * - Password: A secure password for authentication.
+ * - Role: Specifies the user's role (either "professor" or "user").
+ * 
+ * Features:
+ * - Client-Side Validation: Ensures that all fields (email, password, and role) are filled out before submission.
+ * - Server-Side Validation: Sends data to the server for registration and handles errors returned by the server.
+ * - Navigation: Redirects to the login page upon successful registration.
+ * 
+ * Dependencies:
+ * - `useState` and `useEffect` for managing form data, errors, and state updates.
+ * - `useNavigate` for redirecting the user to the login page after successful registration.
+ * - `axiosInstance` for making an HTTP request to register the user on the server.
+ * 
+ * This component validates the form data on the client side and sends a POST request to the server. If successful, it redirects the user to the login page. If there are errors (either from the client or server), they are displayed to the user.
+ */
+
 export default function Register() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({

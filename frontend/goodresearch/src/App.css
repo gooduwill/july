@@ -42,6 +42,24 @@
   text-align: center;
 
 }
+.btn-Edit{
+  background-color: orange;
+  color: white;
+  border: none;
+  padding: auto;
+  border-radius: 4px;
+}
+.btn-Remove{
+  background-color: yellowgreen;
+  color: red;
+  border: none;
+  border-radius: 4px;
+}
+.btn-sort-name{
+  background-color: wheat;
+  color: #7361fb;
+
+}
 #add {
   text-align: left;
 }

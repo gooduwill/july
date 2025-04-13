@@ -22,6 +22,29 @@ const profInitialState = {
   peditId: null,
   serverErrors: null,
 };
+/**
+ * AuthProvider - React Context Provider Component for Authentication and App-wide State Management
+ *
+ * This component sets up and provides global authentication-related state and several application-wide data points 
+ * using React's Context API and multiple useReducer/useState hooks. It manages:
+ * 
+ * - User login/logout state (`userState`)
+ * - Secondary user data and edit state (`user2State`)
+ * - Professor-related data (`prof`)
+ * - Department list (`depart`)
+ * - Application form post data (`applypost`)
+ * 
+ * Key responsibilities:
+ * - On initial mount, checks for a stored token and fetches authenticated user data if present.
+ * - Fetches and manages form submissions, professor list, and department list from the backend.
+ * - Provides utility methods like `handleLogin`, `handleLogout`, and `handleEdit` for consumer components.
+ * - Uses `AuthContext` to expose all states and functions to descendant components.
+ * - Prevents page flash on reload by displaying a loading message until user data is resolved if a token exists.
+ * 
+ * Props:
+ * - `props.children` - Any components nested within this provider, which will consume the provided context.
+ */
+
 function AuthProvider(props) {
   const [userState, userDispatch] = useReducer(userReducer, initialState);
   const [user2State, user2Dispatch] = useReducer(user2Reducer, userInitialState);

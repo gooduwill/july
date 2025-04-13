@@ -3,6 +3,31 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import axiosInstance from "./axiosInstance";
+/**
+ * ProfessorAcc - A component for creating and editing a professor's account
+ *
+ * This component allows professors to create or edit their profile by providing their name,
+ * research area, work area, and profile image. If a professor is being edited, the form will be 
+ * pre-populated with the existing data. Upon form submission, the data is sent to the server via 
+ * a POST or PUT request, depending on whether the professor is being created or edited.
+ * The component performs client-side validation to ensure required fields are filled out correctly 
+ * and displays appropriate error messages.
+ *
+ * Features:
+ * - Provides a form to create or edit a professor's profile.
+ * - Client-side validation to check for required fields and proper input formats.
+ * - Handles both creation (POST request) and updating (PUT request) of professor data.
+ * - Displays error messages from the server or client-side validation errors.
+ * - Redirects to the professor's list page after successful submission.
+ *
+ * Dependencies:
+ * - `useContext` to access the `AuthContext` for global state (professor data, authentication state).
+ * - `useState` for managing form data, client-side validation errors, and server errors.
+ * - `useEffect` to pre-populate form fields when editing a professor's account.
+ * - `useNavigate` to redirect the user to another page (professors list) after a successful submission.
+ *
+ * Intended to be used by professors to either create a new profile or update their existing profile.
+ */
 
 export default function ProfessorAcc() {
   const navigate = useNavigate();
@@ -125,10 +150,12 @@ export default function ProfessorAcc() {
       )}
 
       <form onSubmit={handleSubmit} className="form-acc1">
-        <div className="form-acc">
+        <div className="form-group">
           <label>
             Enter your Name
+            </label>
             <input
+              class="form-control"
               type="text"
               name="name2"
               value={form.name2}
@@ -136,13 +163,14 @@ export default function ProfessorAcc() {
               placeholder="Enter your name"
             />
             {clientErrors.name2 && <span style={{ color: "red" }}>{clientErrors.name2}</span>}
-          </label>
         </div>
 
-        <div className="form-acc">
+        <div className="form-gorup">
           <label className="label-acc">
             Enter Research Work
+            </label>
             <textarea
+            class="form-control"
               name="area"
               className="container-acc"
               value={form.area}
@@ -150,26 +178,28 @@ export default function ProfessorAcc() {
               placeholder="Enter Research work"
             />
             {clientErrors.area && <span style={{ color: "red" }}>{clientErrors.area}</span>}
-          </label>
         </div>
 
         {/* Image Upload Section */}
-        <div className="form-acc">
+        <div className="form-group">
           <label>
             Upload Profile Image:
-            <input
+            </label>
+            <input 
+              class="form-control"
               type="file"
               accept="image/*"
               onChange={(e) => setForm({ ...form, image: e.target.files[0] })}
-            />
-          </label>
+            />          
         </div>
 
 
-        <div className="form-acc">
+        <div className="form-group">
           <label>
             Enter workarea
+            </label>
             <input
+              class="form-control"
               type="text"
               name="workarea"
               value={form.workarea}
@@ -177,8 +207,7 @@ export default function ProfessorAcc() {
               placeholder="Enter your workarea"
             />
             {clientErrors.workarea && <span style={{ color: "red" }}>{clientErrors.workarea}</span>}
-
-          </label>
+          
         </div>
         <div style={{ textAlign: "center" }}>
           <input type="submit" className="subbuttonacc1" />

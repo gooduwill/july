@@ -10,6 +10,28 @@ const initialReview = {
   rating: 0, // Ensure rating is part of the review
   professorId: "",
 };
+/**
+ * ProfessorDetails - A component for displaying and submitting reviews for a specific professor
+ *
+ * This component displays detailed information about a specific professor, including their name, research area, 
+ * and a form to submit reviews. The reviews are fetched from the server, filtered by the professor's ID, and displayed
+ * below the form. Users can submit a review by entering a comment, a rating (1-5 stars), and their name.
+ * After submission, the new review is added to the UI and sent to the server.
+ *
+ * Features:
+ * - Displays professor details such as name and research area.
+ * - Allows users to submit a review for the professor, including a star rating.
+ * - Fetches and displays existing reviews for the selected professor.
+ * - Updates the UI in real-time by adding new reviews after submission.
+ *
+ * Dependencies:
+ * - `useContext` to access the `AuthContext` for professor data.
+ * - `useParams` to get the professor's ID from the URL.
+ * - `useState` to manage form data, reviews, and current professor data.
+ * - `useEffect` to fetch reviews for the selected professor when the component mounts.
+ *
+ * Intended to be used by users who want to view and submit reviews for professors.
+ */
 
 export default function ProfessorDetails() {
   const { prof } = useContext(AuthContext);
@@ -22,13 +44,13 @@ export default function ProfessorDetails() {
     axiosInstance
       .get(`/users/review?professorId=${id}`)
       .then((response) => {
-        setAdd(response.data.filter((review) => review.professorId === id)); // Ensure only relevant reviews
+        setAdd(response.data.filter((ele) => ele.professorId === id)); // Ensure only relevant reviews
       })
       .catch((err) => {
         console.log(err);
       });
   }, [id]);
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -50,8 +72,8 @@ export default function ProfessorDetails() {
 
   return (
     <div>
-      <p>Professor ID: {id}</p>
-      <p>Name: {users?.name2}</p>
+      <p  style={{color:"Blue"}}>Professor ID: {id}</p>
+      <p style={{color:"red"}}>Name: {users?.name2}</p>
       <p>Research Area:</p>
       <div>
         {users?.area?.split(".").map((line, index) => (
@@ -59,7 +81,7 @@ export default function ProfessorDetails() {
         ))}
         <br />
         <form onSubmit={handleSubmit}>
-          <label>Write Review</label>
+          <label style={{color:"yellowgreen"}}>Write Review</label>
           <br />
           <textarea
             type="text"
@@ -102,7 +124,7 @@ export default function ProfessorDetails() {
           <br />
 
           {/* Display Reviews */}
-          <h3>Reviews</h3>
+          <h3 style={{color:"yellowgreen"}}>Reviews</h3>
           <ul>
             {add.map((ele, index) => (
               <li key={index}>

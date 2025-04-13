@@ -1,5 +1,31 @@
 import Apply from "../models/applypost.js";
 import { validationResult } from "express-validator";
+/**
+ * applypostCltr - Controller Object for handling operations related to Apply model.
+ * 
+ * Functions:
+ * 
+ * 1. list (GET /applyposts)
+ *    - Fetches all records from the Apply collection.
+ *    - Responds with an array of applypost objects.
+ *    - Handles any internal server errors with status 500.
+ * 
+ * 2. create (POST /applyposts)
+ *    - Validates the request body using express-validator.
+ *    - If validation fails, responds with 404 and a list of errors.
+ *    - If valid, creates a new Apply document in the database.
+ *    - Responds with status 201 and the created object.
+ *    - Handles internal server errors with status 500.
+ * 
+ * 3. update (PUT /applyposts/:id)
+ *    - Validates the request body.
+ *    - If validation fails, responds with 404 and error details.
+ *    - Attempts to update an Apply document based on the provided ID.
+ *    - If no matching record is found, responds with 400 and an error message.
+ *    - On success, responds with the updated applypost object.
+ *    - Handles any internal server errors with status 500.
+ */
+
 const applypostCltr = {};
 
 applypostCltr.list = async (req, res) => {
@@ -10,7 +36,7 @@ applypostCltr.list = async (req, res) => {
         res.json(applypost)
     }
     catch (err) {
-        console.log(err)
+        console.log(err) 
         res.status(500).json({ error: 'something went wrong' })
     }
 }

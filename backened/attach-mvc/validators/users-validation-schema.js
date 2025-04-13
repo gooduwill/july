@@ -1,5 +1,12 @@
 import Good from "../models/users-model.js"
 export const userRegisterSchema = {
+    // Validates the 'email' field during user registration:
+    // 1. Ensures the 'email' field exists in the request body.
+    // 2. Ensures the 'email' field is not empty.
+    // 3. Ensures the 'email' is in a valid format (email address).
+    // 4. Trims and normalizes the email (removes extra spaces and standardizes the format).
+    // 5. Checks if the email is already taken in the database.
+    //    If a user with the same email exists, an error message is thrown.
     email: {
         in: ['body'],
         exists: {
@@ -27,6 +34,16 @@ export const userRegisterSchema = {
             }
         }
     },
+     // Validates the 'password' field during user registration:
+    // 1. Ensures the 'password' field exists in the request body.
+    // 2. Ensures the 'password' field is not empty.
+    // 3. Validates the password to be strong by requiring:
+    //    - A minimum length of 8 characters.
+    //    - At least 1 lowercase letter.
+    //    - At least 1 uppercase letter.
+    //    - At least 1 numeric character.
+    //    - At least 1 special character (symbol).
+    // 4. Trims the password to remove extra spaces.
     password: {
         exists: {
             errorMessage: 'password field is required'
@@ -49,6 +66,11 @@ export const userRegisterSchema = {
 }
 
 export const userLoginSchema = {
+    // Validates the 'email' field during user login:
+    // 1. Ensures the 'email' field exists in the request body.
+    // 2. Ensures the 'email' field is not empty.
+    // 3. Ensures the 'email' is in a valid format (email address).
+    // 4. Trims and normalizes the email (removes extra spaces and standardizes the format).
     email: {
         in: ['body'],
         exists: {
@@ -64,6 +86,16 @@ export const userLoginSchema = {
         normalizeEmail: true, 
         
     },
+     // Validates the 'password' field during user login:
+    // 1. Ensures the 'password' field exists in the request body.
+    // 2. Ensures the 'password' field is not empty.
+    // 3. Validates the password to be strong by requiring:
+    //    - A minimum length of 8 characters.
+    //    - At least 1 lowercase letter.
+    //    - At least 1 uppercase letter.
+    //    - At least 1 numeric character.
+    //    - At least 1 special character (symbol).
+    // 4. Trims the password to remove extra spaces.
     password: {
         exists: {
             errorMessage: 'password field is required'

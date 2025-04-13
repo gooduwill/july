@@ -3,6 +3,28 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import AuthContext from "../context/AuthContext";
 import axiosInstance from "./axiosInstance";
+/**
+ * Professor - Displays a list of professors based on a search criteria
+ *
+ * This component allows users to search for professors by their work area and displays the results.
+ * The search is performed by entering a keyword into a search input field. The professor's name, 
+ * work area, experience, and image are shown in the results. If no professors match the search, 
+ * a "not found" message is displayed.
+ *
+ * Features:
+ * - Users can search for professors by entering a work area.
+ * - Displays a list of professors based on the search results, showing their name, work area, experience, and image.
+ * - Uses `axiosInstance` to fetch data from the server based on the search query.
+ * - Displays a "Professor not found" message if no professors match the search criteria.
+ * - Uses `useNavigate` for handling navigation to individual professor profiles.
+ *
+ * Dependencies:
+ * - `useContext` for accessing `AuthContext` to retrieve any needed global state (e.g., professor data).
+ * - `useState` for managing local state (e.g., search query and results).
+ * - `useEffect` to perform the search when the search query changes.
+ *
+ * Intended to be used in the professor listing section, allowing users to find and view professors.
+ */
 
 export default function Professor() {
   const { profDispatch, prof } = useContext(AuthContext);
@@ -33,11 +55,7 @@ export default function Professor() {
 
 
   }, [searchwarea])
-  //const handleProfEdit = (id) => {
-  //profDispatch({ type: "prof_edit_id", payload: id });
-  //navigate("/ProfessorAcc");
-  //};
-
+  
   return (
     <div>
       <h1>Professor's List</h1>
