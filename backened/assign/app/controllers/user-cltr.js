@@ -35,8 +35,8 @@ const userCltr = {}
                     port: 587,
                     secure: false,
                     auth: {
-                        user: ' k28053341@gmail.com',
-                        pass:  'gknpeaqlfqycjukm'
+                        user: ' k28kjoikk@gmail.com',
+                        pass:  'gknpeaqlfqyc2563'
         
                         // Add the password here if needed (not recommended for security reasons)
                     }

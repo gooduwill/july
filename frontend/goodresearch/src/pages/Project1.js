@@ -25,7 +25,6 @@ import axiosInstance from "./axiosInstance";
  * - `useEffect` to populate the form with data if editing an existing application.
  * - `axiosInstance` for sending the POST/PUT request to the server with form data.
  * 
- * Intended to be used by users who want to apply for a project or academic position, as well as edit existing applications.
  */
 
 function Project1() {
