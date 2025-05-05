@@ -79,7 +79,7 @@ usersCltr.login = async (req, res) => {
 
         }
         //synchronous operation token generation after login ..after verification token is generated here// userId is payload
-        const token = jwt.sign({ userId: user1._id, role: user1.role }, process.env.JWT_SECRET, { expiresIn: '7d' });
+        const token = jwt.sign({ userId: user1._id, role: user1.role }, process.env.JWT_SECRET, { expiresIn: '10d' });
         //token is sent to frontend
         res.json({ token: `Bearer ${token}` });
 
