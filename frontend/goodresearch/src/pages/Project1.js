@@ -134,7 +134,7 @@ function Project1() {
             "/formsend1",
             formData,
             {
-              headers: { "Content-Type": "multipart/form-data" },
+              headers: { Authorization: localStorage.getItem('token') },
             }
           );
 

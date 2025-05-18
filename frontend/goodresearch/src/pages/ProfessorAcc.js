@@ -124,7 +124,7 @@ export default function ProfessorAcc() {
       }
 
       setForm(formInitialValue);
-      //setTimeout(() => navigate("/professors"), 50); // Redirect to professor list after submission
+     // Redirect to professor list after submission
       navigate("/professors");
     } catch (err) {
       console.error("Server error:", err.response?.data.errors);
