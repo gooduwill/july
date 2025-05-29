@@ -33,7 +33,10 @@
 function handleClick(event){
     console.log('event object',event)
     const xhr=new XMLHttpRequest()
-    xhr.open('GET', 'http://localhost:3000/employees')
+    //xhr.open('GET', 'http://localhost:3000/employees')
+    xhr.open('GET', 'http://jsonplaceholder.typicode.com/users')
+    
+
     xhr.send()
     xhr.onload=function(){
     //console.log(xhr.responseText)

@@ -36,6 +36,7 @@ const initialReview = {
 export default function ProfessorDetails() {
   const { prof } = useContext(AuthContext);
   const [form1, setForm1] = useState(initialReview);
+  const {userState } = useContext(AuthContext);
   const [add, setAdd] = useState([]); // Holds reviews for the specific professor
   const { id } = useParams(); // Current professor ID
   const users = prof.data.find((ele) => ele._id === id);
@@ -139,8 +140,10 @@ export default function ProfessorDetails() {
           </ul>
         </form>
       </div>
+      {(userState?.user?.role === "user" || userState?.user?.role === "admin") && (
 
       <Link to={`/user-project1/${id}`}>Application Form</Link>
+      )}
     </div>
   );
 }

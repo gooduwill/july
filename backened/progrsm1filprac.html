@@ -37,10 +37,12 @@
      let employeesDetails=''
      result1.forEach(function(ele){
        employeesDetails+=`<li>${ele.name}-${ele.username}</li>`
-       list2Handle.innerHTML=employeesDetails
+       //list2Handle.innerHTML=employeesDetails
+       list2Handle.innerHTML='its goodwill'
        empbtn2Handel.setAttribute('disabled',true)
     console.log(result1)
     console.log('total users record',result1.length)
+    console.log('fresult shown',list2Handle)
         })
       }}
 function handleClick(event){
