@@ -52,7 +52,7 @@ professorCltr.create = async (req, res) => {
   try {
     const { name2, area, email, workarea } = req.body;
     const image = req.file ? req.file.path : null; // Get Cloudinary URL
-    console.log(name2, area, email, workarea, image)
+    console.log('resultimage',name2, area, email, workarea, image)
 
     const professor = await Professor.create({ name2, area, email, workarea, image });
     res.status(201).json({ professor });

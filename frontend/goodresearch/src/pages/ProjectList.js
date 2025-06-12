@@ -50,7 +50,8 @@ export default function ProjectList() {
   }
     useEffect(() => {
     if (user2State?.data) {
-      setUser2([...user2State.data]); // Ensure a new array reference
+      setUser2([...user2State.data]); // Ensure a new array reference contains all student data
+    
     }
   }, [user2State]);
 
@@ -92,6 +93,7 @@ export default function ProjectList() {
       }
     });
   };
+  
   const totalUsers = user2State.data?.length || 0;
   const totalPages = Math.ceil(totalUsers / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
@@ -105,7 +107,7 @@ export default function ProjectList() {
       <h1>Student List</h1>
       {/* Sorting Button */}
       <button type="button" className="btn btn-sort-name" onClick={handleSort}>
-        Sort by Name ({sortOrder === "asc" ? "Ascending" : "Descending"})
+        Sort by Name ({sortOrder === "asc" ? "Descending" : "AScending"})
       </button>
       <ul>
         {currentUsers.map((ele) => (
@@ -161,6 +163,7 @@ export default function ProjectList() {
           </button>
         </form>
       </div>
+      {/* dispaly search result*/}
       {filteredUsers.length > 0 ? (
         filteredUsers.map((ele) => (
           <div key={ele._id}>

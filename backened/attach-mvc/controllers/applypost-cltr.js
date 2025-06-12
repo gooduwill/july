@@ -26,7 +26,7 @@ import { validationResult } from "express-validator";
  *    - Handles any internal server errors with status 500.
  */
 
-const applypostCltr = {};
+const applypostCltr = {};//This is most likely an object that holds multiple functions related to the "Apply Post" feature/module. For
 
 applypostCltr.list = async (req, res) => {
 
@@ -48,7 +48,7 @@ applypostCltr.create = async (req, res) => {
     const body = req.body
     console.log('body', body);
     try {
-        const applypost = await Apply.create(body)
+        const applypost = await Apply.create(body)//applypost is instance of apply model
         res.status(201).json({ applypost })
 
     }
@@ -59,7 +59,7 @@ applypostCltr.create = async (req, res) => {
 
 }
 
-applypostCltr.update = async (req, res) => {
+applypostCltr.update = async (req, res) => {//So applypostCltr.update is just one function attached to that controller object.
     const errors = validationResult(req)
     if (!errors.isEmpty()) {
         return res.status(404).json({ errors: errors.array() })
@@ -69,7 +69,7 @@ applypostCltr.update = async (req, res) => {
     try {
         const applypost = await Apply.findByIdAndUpdate(id, body, { new: true, runValidators: true })
         if (!applypost) {
-            return res.status(400).json({ error: 'record not found' })
+            return res.status(404).json({ error: 'record not found' })
         }
         res.json(applypost)
     }
@@ -79,4 +79,4 @@ applypostCltr.update = async (req, res) => {
     }
 
 }
-export default applypostCltr;
+export default applypostCltr;//This line is used in JavaScript (ES6 modules) to export the applypostCltr object so that it can be used in other files.

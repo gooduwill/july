@@ -47,7 +47,7 @@ export default function ProfessorAcc() {
 
   useEffect(() => {
     if (prof.peditId) {
-      const profs = prof.data.find((ele) => ele._id === prof.peditId);
+      const profs = prof.data.find((ele) => ele._id === prof.peditId);// prefill forms with prof data
       if (profs) {
         setForm({
           name2: profs.name2,
@@ -90,7 +90,7 @@ export default function ProfessorAcc() {
     }
     setClientErrors({});
     try {
-      const formData = new FormData();
+      const formData = new FormData();//for file upload
       formData.append("name2", form.name2);
       formData.append("area", form.area);
       formData.append("email", userState.user.email);
@@ -111,7 +111,7 @@ export default function ProfessorAcc() {
             },
           }
         );
-        console.log('data to be send',response.data)
+        
         profDispatch({ type: "update_prof", payload: response.data });
       } else {
         response = await axiosInstance.post("/users/prof", formData, {

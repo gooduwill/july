@@ -45,7 +45,7 @@ export default function ProfessorDetails() {
     axiosInstance
       .get(`/users/review?professorId=${id}`)
       .then((response) => {
-        setAdd(response.data.filter((ele) => ele.professorId === id)); // Ensure only relevant reviews
+        setAdd(response.data.filter((ele) => ele.professorId === id)); // Ensure only relevant reviews(all the reviews of single professor)
       })
       .catch((err) => {
         console.log(err);

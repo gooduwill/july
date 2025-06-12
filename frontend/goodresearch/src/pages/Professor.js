@@ -40,10 +40,10 @@ export default function Professor() {
     if (!searchwarea) {
       return
     }
-    axiosInstance.get(`/users/prof/${searchwarea}`)
+    axiosInstance.get(`/users/prof/${searchwarea}`)//dispalyed all the professor of given workarea
       .then((response) => {
         const result = response.data;
-        console.log('result', result)
+        console.log('resultimp', result)
         setUser1(result)
 
 

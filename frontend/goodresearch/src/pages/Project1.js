@@ -255,7 +255,8 @@ function Project1() {
             type="text"
             value={form.email}
             name="email"
-
+            readonly
+            
           />
 
 

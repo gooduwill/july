@@ -66,12 +66,14 @@ function AuthProvider(props) {
       if (localStorage.getItem('token')) {
         const response = await axiosInstance.get('/users/account', { headers: { Authorization: localStorage.getItem('token') } });
         handleLogin(response.data)
-        console.log(response.data)
+        console.log('response imp',response.data)
+        
       }
 
     })();
 
   }, [])
+  
 
   useEffect(() => {
     axiosInstance.get("/formsend1").then((response) => {
@@ -108,7 +110,8 @@ function AuthProvider(props) {
     user2Dispatch({ type: "set_edit_id", payload: id });
     navigate("/Project1"); // Navigate to the form for editing
   };
-  const editData = user2State.editId
+  
+  const editData = user2State.editId//data of clicked student is saved to editData
     ? user2State.data.find((ele) => ele._id === user2State.editId)
     : null;
 
@@ -128,6 +131,8 @@ function AuthProvider(props) {
 
 
   }, []);
+  
+
   if (localStorage.getItem('token') && !userState.user) {  //to stop going to login after reload
     return <p>loading....</p>
   }

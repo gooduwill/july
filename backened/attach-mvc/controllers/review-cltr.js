@@ -44,7 +44,7 @@ reviewCltr.list = async (req, res) => {
   try {
     const { professorId } = req.query;
     if (!professorId) {
-      return res.status(400).json({ error: "Professor ID is required" });
+      return res.status(404).json({ error: "Professor ID is required" });
     }
     if (!mongoose.Types.ObjectId.isValid(professorId)) {
       return res.status(400).json({ error: "Invalid Professor ID" });
